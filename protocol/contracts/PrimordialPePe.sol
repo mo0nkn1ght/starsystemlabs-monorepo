@@ -40,7 +40,7 @@ contract PrimordialPePe is ERC20Burnable, Ownable, AccessControl {
     mapping(uint256 => uint256) public planetStakeTimes;
     mapping(uint256 => uint256) public planetClaimTimes;
 
-   constructor() ERC20("PrimordialPePe", "PPP") {
+   constructor() ERC20("PrimordialPePe", "PPEPE") {
 
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, msg.sender);
