@@ -45,8 +45,8 @@ contract PrimordialPePe is ERC20Burnable, Ownable, AccessControl {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, msg.sender);
 
-        minters.add(msg.sender); // Add the deployer to the minters list
-        admins.add(msg.sender); // Add the deployer to the admins list
+        minters.add(msg.sender);
+        admins.add(msg.sender);
     }
 
     /**
@@ -252,7 +252,7 @@ contract PrimordialPePe is ERC20Burnable, Ownable, AccessControl {
         uint256 progressiveReward = progressiveDays == 0
             ? 0
             : (progressiveDays *
-                (80.2 ether + 0.2 ether * (progressiveDays - 1) + 80.2 ether)) /
+                (2525 ether + 25 ether * (progressiveDays - 1) + 2525 ether)) /
                 2;
 
         uint256 dailyIncrement = _primordialDailyIncrement(_days);
@@ -263,7 +263,7 @@ contract PrimordialPePe is ERC20Burnable, Ownable, AccessControl {
         if (_days <= 100) {
             return progressiveReward + leftoverReward;
         }
-        return progressiveReward + (_days - 100) * 100 ether + leftoverReward;
+        return progressiveReward + (_days - 100) * 5000 ether + leftoverReward;
     }
 
     function _primordialDailyIncrement(uint256 _days)
@@ -271,7 +271,7 @@ contract PrimordialPePe is ERC20Burnable, Ownable, AccessControl {
         pure
         returns (uint256)
     {
-        return _days > 100 ? 100 ether : 80 ether + _days * 0.2 ether;
+        return _days > 100 ? 5000 ether : 2500 ether + _days * 25 ether;
     }
 
     // ACCESS CONTROL FUNCTIONS
