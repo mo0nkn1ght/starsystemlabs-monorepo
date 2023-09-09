@@ -1,0 +1,119 @@
+.sectorWrapper {
+  @include card;
+}
+
+.sector {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  background: $black;
+  background-blend-mode: overlay;
+  display: flex;
+  align-items: center;
+  padding: 0px 0;
+  justify-content: center;
+
+  @include smallMedia {
+    min-height: 400px;
+    align-items: flex-start;
+    padding: 48px 0;
+    background-size: cover;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    transition: all 0.5s;
+    width: 100%;
+    max-width: 1200px;
+
+    @include largeMedia {
+      padding: 40px;
+    }
+
+    @include smallMedia {
+      padding: 20px;
+    }
+
+    h2 {
+      @include gradientFont($gradient-primary);
+      font-size: 36px;
+      font-weight: 600;
+      font-family: $font-primary;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+    .title {
+      font-size: 42px;
+      font-family: $font-tertiary;
+      font-weight: 500;
+      margin-bottom: 80px;
+    }
+
+    .content_faq {
+      width: 100%;
+      align-items: flex-start;
+      @include minLargeMedia {
+        display: flex;
+      }
+
+      .faqs {
+        :global(.MuiPaper-elevation1) {
+          box-shadow: none;
+          font-family: $font-tertiary;
+          width: 100%;
+          background: $black;
+          color: white;
+        }
+
+        :global(.MuiAccordionSummary-root) {
+          font-size: 18px;
+          font-family: $font-tertiary;
+          font-weight: 500;
+
+          :global(.MuiSvgIcon-root) {
+            color: $white;
+          }
+        }
+
+        :global(.MuiAccordionDetails-root) {
+          padding: 20px;
+          box-sizing: border-box;
+          font-family: $font-tertiary;
+          color: $grey-100;
+          font-size: 16px;
+          line-height: 26px;
+          white-space: pre-line;
+        }
+      }
+
+      .clip {
+        position: relative;
+
+        @include smallMedia {
+          display: none;
+        }
+
+        img {
+          margin-left: 100px;
+          filter: grayscale(0.0) opacity(1);
+          -webkit-filter: grayscale(0.0) opacity(1);
+          width: 360px;
+        }
+
+        &::after {
+          position: absolute;
+          content: '';
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+      }
+    }
+  }
+}

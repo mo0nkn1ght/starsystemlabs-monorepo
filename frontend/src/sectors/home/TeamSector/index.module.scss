@@ -1,0 +1,90 @@
+.sectorWrapper {
+  @include card;
+}
+
+.sector {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  background: $black;
+  background-blend-mode: overlay;
+  display: flex;
+  align-items: center;
+  padding: 50px 0;
+  justify-content: center;
+
+  @include smallMedia {
+    min-height: 400px;
+    align-items: flex-start;
+    padding: 48px 0;
+    background-size: cover;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    transition: all 0.5s;
+    width: 100%;
+    max-width: 900px;
+
+    .title {
+      @include gradientFont($gradient-primary);
+      font-size: 42px;
+      font-weight: 600;
+      font-family: $font-primary;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .items {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      row-gap: 50px;
+      column-gap: 50px;
+
+      @include mediumMedia {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include smallMedia {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include extraSmallMedia {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .widget {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & > img {
+          width: 200px;
+          border-radius: 8px;
+          filter: grayscale(0.3);
+        }
+
+        & > b {
+          font-family: $font-primary;
+          color: $primary;
+          font-weight: bolder;
+          font-size: 18px;
+          margin-top: 20px;
+          margin-bottom: 5px;
+        }
+
+        & > span {
+          font-size: 14px;
+          color: $grey-100;
+          font-weight: bold;
+          font-family: $font-primary;
+        }
+      }
+    }
+  }
+}

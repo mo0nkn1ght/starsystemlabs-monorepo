@@ -1,0 +1,174 @@
+.sectorWrapper {
+  @include card;
+}
+
+.header {
+  text-align: center;
+}
+
+.sector {
+  width: 100%;
+  min-height: 300px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  background-color: $black;
+  background-blend-mode: overlay;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 0;
+
+
+  @include smallMedia {
+    min-height: 400px;
+    align-items: flex-start;
+    padding: 48px 0;
+    background-size: cover;
+  }
+
+  .inner2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $white;
+    transition: all 0.5s;
+    width: 100%;
+    padding-bottom: 0px;
+    max-width: 900px;
+
+    @include smallMedia {
+      justify-content: center;
+    }
+
+    @include extraSmallMedia {
+      padding: 20px;
+    }
+
+    .clip {
+      position: relative;
+
+      @include smallMedia {
+        display: none;
+      }
+
+      & > img {
+        width: 430px;
+        text-align: center;
+        height: auto;
+        opacity: 0.9;
+        filter: grayscale(0.8);
+        -webkit-filter: grayscale(0.8);
+      }
+
+      &::after {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(transparent, $black);
+      }
+    }
+
+    .intro {
+      width: 900px;
+
+      h2 {
+        @include gradientFont($gradient-primary);
+        font-size: 36px;
+        font-weight: 600;
+        font-family: $font-primary;
+        margin-bottom: 50px;
+        text-align: center;
+      }
+
+      .warning {
+        color: $secondary;
+      }
+
+      p {
+        color: $grey-100;
+        line-height: 28px;
+        font-size: 18px;
+        text-align: center;
+
+        & > b {
+          font-weight: bolder;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $white;
+    transition: all 0.5s;
+    width: 100%;
+    padding-bottom: 5px;
+    max-width: 750px;
+
+    @include smallMedia {
+      justify-content: center;
+    }
+
+    @include extraSmallMedia {
+      padding: 20px;
+    }
+
+    .clip {
+      position: relative;
+
+      @include smallMedia {
+        display: none;
+      }
+
+      & > img {
+        width: 430px;
+        height: auto;
+        opacity: 0.9;
+        filter: grayscale(0.8);
+        -webkit-filter: grayscale(0.8);
+      }
+
+      &::after {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(transparent, $black);
+      }
+    }
+
+    .intro {
+      width: 900px;
+
+
+      h2 {
+        @include gradientFont($gradient-primary);
+        font-size: 36px;
+        font-weight: 600;
+        font-family: $font-tertiary;
+        margin-bottom: 50px;
+        text-align: center;
+      }
+
+      p {
+        color: $grey-100;
+        line-height: 28px;
+        font-size: 18px;
+        text-align: center;
+
+        & > b {
+          color: $white;
+        }
+      }
+    }
+  }
+}

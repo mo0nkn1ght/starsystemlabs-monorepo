@@ -1,0 +1,47 @@
+@import-normalize;
+
+@import './fonts';
+
+@import './colors';
+
+@import './mixins';
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: $black;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body * {
+  font-family: $font-tertiary;
+}
+
+// Toastify styles
+:global(.Toastify__toast-body) {
+  & > div {
+    font-family: $font-primary !important;
+    font-weight: 500;
+    color: $black;
+  }
+}
+
+:global(.Toastify__toast-theme--light) {
+  border-radius: 5px;
+  width: 100%;
+}
+
+:global(.Toastify__toast-container) {
+  width: 400px;
+
+  @include extraSmallMedia {
+    width: initial;
+  }
+}
+
+:global(.Toastify__close-button) {
+  display: none;
+}

@@ -1,0 +1,211 @@
+.sectorWrapper {
+  @include card;
+}
+
+button.button {
+  border-radius: 100rem;
+  border-color: $grey-50;
+  padding: 1rem;
+  font-size: 1rem;
+  padding: .5rem 3rem;
+  font-family: $font-quaternary; 
+  margin-left: 8px;
+  background-color: $primary;
+  cursor: pointer;
+}
+
+button.button:hover {
+  box-shadow: none;
+  color: $grey;
+}
+
+.balance {
+color: $primary;
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+
+.sector {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  background-color: $black;
+  background-blend-mode: overlay;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+
+  @include smallMedia {
+    min-height: 400px;
+    align-items: flex-start;
+    padding: 48px 0;
+    background-size: cover;
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $white;
+    transition: all 0.5s;
+    width: 100%;
+    padding-top: 35px;
+    padding-bottom: 28px;
+    max-width: 900px;
+
+    @include smallMedia {
+      justify-content: center;
+    }
+
+    @include extraSmallMedia {
+      padding: 20px;
+    }
+
+.connect {
+        font-family: $font-secondary;
+
+        @include smallMedia {
+          padding: 8px 12px;
+        }
+
+        .connectText {
+          font-family: $font-secondary; 
+          margin-left: 8px;
+          @include extraSmallMedia {
+            display: none;
+          }
+        }
+      }
+
+    .header{
+      text-align: center;
+    }
+
+    .auction {
+      width: 900px;
+      text-align: center;
+
+      h2 {
+        @include gradientFont($gradient-primary);
+        font-size: 36px;
+        font-weight: 600;
+        font-family: $font-primary;
+        margin-bottom: 50px;
+      }
+
+      p {
+        color: $grey-100;
+        line-height: 28px;
+        font-size: 18px;
+
+        & > b {
+          color: $secondary;
+          text-decoration: underline;
+        }
+
+        & > u {
+          color: $tertiary;
+        }
+      }
+    }
+
+    .links a {
+      display: inline-block;
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-family: $font-secondary;
+      font-weight: 600;
+      text-decoration: none;
+      background-color: $primary;
+      color: $black;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+      margin: 0 15px; /* Adjust the margin values as needed */
+    }
+    
+    .links a:hover {
+      background-color: $secondary;
+      transform: translateY(-2px);
+    }
+    
+    .links a:active {
+      background-color: $secondary;
+      transform: translateY(1px);
+    }    
+
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.flex_display {
+  //width: 68%;
+  display: flex;
+  padding: 5px;
+
+//   /* For Mobile */
+// }
+
+// .left_div {
+//   width: 70%;
+//   text-align: right;
+//   @include extraSmallMedia {
+//     width: 60%;
+//   }
+// }
+
+// .right_div {
+//   width: 30%;
+//   text-align: left;
+//   @include extraSmallMedia {
+//     width: 40%;
+//   }
+// }
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  background-color: $primary;
+  border-radius: 25px;
+  border-color: $grey-45;
+  padding: 10px;
+  width: 70%;
+  @include extraSmallMedia {
+    width: 100%;
+  }
+}
+
+input[type=text] {
+  -moz-appearance: textfield;
+  background-color: $primary;
+  border-radius: 25px;
+  border-color: $grey-45;
+  padding: 10px;
+  width: 70%;
+  @include extraSmallMedia {
+    width: 100%;
+  }
+}
+
+input:disabled {
+  color: black;
+}
+
+select {
+  padding: 10px;
+  font-size: 18px;
+  background-color: #FFC300;
+  border-radius: 100rem;
+}
+}

@@ -1,0 +1,63 @@
+body {
+  .button {
+    text-transform: none;
+    background: $gradient-primary;
+    color: $black;
+    font-family: $font-secondary;
+    letter-spacing: 1px;
+    padding: 10px 34px;
+    transition: all 0.2s;
+    border-radius: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+
+    &:hover {
+      background: $gradient-primary;
+      transform: translateY(-3px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      background: $gradient-primary;
+    }
+
+    &.secondary {
+      background: $gradient-primary;
+      color: $black;
+      padding: 10px 30px;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    &.gradient {
+      transition: background 120ms ease 0s, opacity 120ms ease 0s,
+        filter 120ms ease 0s, transform 300ms ease 0s;
+      @include gradientChange;
+      position: relative;
+
+      &::after {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 5px;
+        filter: blur(30px);
+        -webkit-filter: blur(30px);
+        opacity: 0.4;
+        z-index: -1;
+        transition: background 120ms ease 0s, opacity 120ms ease 0s,
+          filter 120ms ease 0s;
+        @include gradientChange;
+      }
+    }
+
+    &.loading {
+      pointer-events: none;
+    }
+  }
+}
