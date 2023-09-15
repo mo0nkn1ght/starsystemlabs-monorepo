@@ -89,31 +89,6 @@ contract MiningRig {
         return _calculate(_address);
     }
 
-    function claim(address _address) external returns(uint){
-        require(scores[_address].base != 0, "COPE HARDER - $PEPE");
-        require(_address == msg.sender, "Nice Try");
-        require(rig.blockno >= scores[_address].redeemable, "You are too early to claim");
-    
-        uint256 _pepeBalance = IERC20(PEPE).balanceOf(address(this));
-    
-        // Calculate the user's fraction of the total mined tokens
-        uint256 userFraction = scores[_address].debt * 1e18 / rig.mined; // Multiplied by 1e18 to avoid truncation errors
-
-        // Calculate the amount of reward the user should receive based on this fraction
-        uint256 reward = userFraction * _pepeBalance / 1e18; // Divided by 1e18 to get the actual reward value
-
-        // Ensure there's enough balance in the contract to pay the reward
-        require(_pepeBalance >= reward, "Insufficient funds to pay reward");
-
-        SafeTransferLib.safeApprove(PEPE, _address, type(uint256).max);
-        SafeTransferLib.safeTransfer(PEPE, _address, reward);
-        scores[_address].base = 0;
-        scores[_address].debt = 0;
-        scores[_address].redeemable++;
-        return reward;
-    }
-
-
     function _hopOnUniswap(
         uint256 amountOutMin
     ) internal returns (uint amountOut) {
