@@ -1,17 +1,24 @@
-# Star System Labs Frontend-v1
+# starsystemlabs-frontend
 
-### Current Version - v1.5
+## Project setup
+```
+npm install
+```
 
-### Current Features
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-* Blockchain dApp
-* NFT Mint Capable UI
-* Direct Otto the AutoBot interaction for burning both Wrapped Luna from Terra Bridge and Wormhole
-* Direct Pancakeswap interaction for purchase on site ( may expand token options with parnters )
-* Eth, Rinkeyby, Goerli, Binance Smart Chain, Binance Test Chain
-* Metamask/WalletConnect/Coinbase Wallet...more wallets coming soon!
+### Compiles and minifies for production
+```
+npm run build
+```
 
-### Coming Features
+### Lints and fixes files
+```
+npm run lint
+```
 
-* Stake LP Tokens from MNBASE/BNB, METO/BNB, WLUNA(wormhole)/BNB <-[Wrapped Luna Classic Wormhole]
-* Claim LP Staking rewards (WLUNA - Wrapped Luna Classic Wormhole)
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
