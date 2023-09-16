@@ -107,8 +107,8 @@ export default {
   background-color: rgba(243, 244, 246, 0.5);
   padding: 20px 20px;
   border-radius: 12px;
-  height: 275px;
-  width: 519px;
+  height: 325px;
+  width: 625px;
 }
 
 .token-input-card {
@@ -125,7 +125,7 @@ export default {
   .cope-container {
   cursor: pointer;
   position: absolute;
-  top: 41.5%;
+  top: 36.5%;
   left: 50%;
   transform: translate(-50%, -50%) scaleX(1);
   transition: transform 0.5s ease-in-out; 

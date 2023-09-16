@@ -6,7 +6,8 @@
       <div class="right-section">
         <img :src="currencyLogo" alt="Currency Logo" class="currency-logo">
         <div class="balance-with-max" v-if="accountAddress">
-          <div class="balance-display">Balance: <span class="balance-amount">{{ balance }}</span></div>
+          <div class="balance-label">Balance:</div>
+          <div class="balance-amount">{{ balance }}</div>
           <button @click="handleMaxClicked" class="max-button">Max</button>
         </div>
       </div>
@@ -86,9 +87,9 @@ export default {
 
 .right-section {
   display: flex;
+  flex-direction: column;
   align-items: center; 
   justify-content: flex-end; 
-  gap: 8px;
 }
 
 .currency-logo {
@@ -99,8 +100,26 @@ export default {
   margin-right: 8px; 
 }
 
+.currency-logo-large {
+  width: 32px;
+  height: 32px;
+  margin: 10px auto;
+  display: block;
+}
+
+.balance-label {
+  font-size: 14px;
+  color: #555;
+}
+
+.balance-amount {
+  font-size: 14px;
+  color: #555;
+  margin-left: 5px;
+}
 .balance-with-max {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 8px; 
 }

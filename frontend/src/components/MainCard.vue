@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="main" :style="{ '--main-card-height': mainCardHeight }">
       <div class="selectors">
         <button @click="setSelectedCard('mine')" :class="{active: selectedCard === 'mine'}">Mine</button>
         <button @click="setSelectedCard('claim')" :class="{active: selectedCard === 'claim'}">Claim</button>
@@ -8,8 +8,8 @@
       <div v-if="selectedCard === 'mine'">
         <div class="input-card-wrapper">
           <MinerCard :ethBalance="ethBalance" :ppepeBalance="ppepeBalance" :accountAddress="accountAddress" @amountChanged="someMethodInMainCard" @connect="$emit('connect')"/>
+        </div>
       </div>
-    </div>
       <div v-if="selectedCard === 'claim'">
         <ClaimCard />
       </div>
@@ -30,6 +30,20 @@
       ClaimCard,
       StakeCard,
       MinerCard
+    },
+    computed: {
+      mainCardHeight() {
+        switch (this.selectedCard) {
+          case 'mine':
+            return '400px';
+          case 'claim':
+            return '425px';
+          case 'stake':
+            return '250px';
+          default:
+            return '350px';
+        }
+      }
     },
     data() {
       return {
@@ -79,9 +93,11 @@
     border-radius: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 1.5rem 2rem;
-    width: 600px;
-    height: 350px;
+    width: 650px;
     margin: 20px auto;
+    height: calc(var(--main-card-height) + 50px);
+    padding-top: 70px;
+    position: relative;
   }
   
   .mb-2 {
@@ -112,8 +128,12 @@
   .selectors {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-  }
+    margin-bottom: 0;  /* Remove margin-bottom */
+    position: absolute;  /* Absolute position so it stays at the top */
+    top: 10px;  /* Adjust based on desired position */
+    left: 100px;
+    right: 100px;
+}
 
   .selectors button {
     padding: 10px 20px;
@@ -122,7 +142,7 @@
     background: rgba(255, 255, 255, 0.5); 
     border: none;
     border-radius: 8px;
-    margin-right: 20px; 
+    margin-right: 10px; 
 }
 
 .selectors button:hover {
