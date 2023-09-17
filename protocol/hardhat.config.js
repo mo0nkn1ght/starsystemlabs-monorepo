@@ -1,9 +1,10 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("@nomiclabs/hardhat-etherscan");
 require("@nomiclabs/hardhat-ethers");
 require('hardhat-abi-exporter');
-require('dotenv').config();
+require('dotenv').config({ path: '.env' });
+require('hardhat-deploy');
 
-/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   networks: {
     localhost: {
@@ -13,17 +14,22 @@ module.exports = {
       timeout: 1800000
     },
     mainnet: {
-      url: "https://mainnet.infura.io/v3/INFURA_PROJECT_ID",
+      url: 'https://mainnet.infura.io/v3/${process.env.INFURA_PROJECT_ID}',
       accounts: [process.env.MAINNET_PRIVATE_KEY],
-      gasPrice: 20000000000, // 20 Gwei
-      gas: 5000000,
+      gasPrice: 9000000000,
+      gas: 10000000,
     },
     sepolia: {
-      url: "https://sepolia.infura.io/v3/INFURA_PROJECT_ID",
+      url: 'https://sepolia.infura.io/v3/${process.env.INFURA_PROJECT_ID}',
       accounts: [process.env.SEPOLIA_PRIVATE_KEY],
       gasPrice: 20000000000, // 20 Gwei
       gas: 12000000,
     },
+  },
+  etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: process.env.ETHERSCAN_API_KEY
   },
   solidity: {
     compilers: [

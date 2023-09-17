@@ -6,22 +6,39 @@ async function main() {
     console.log("Deploying contracts with the account:", deployer.address);
     console.log("Account balance:", (await deployer.getBalance()).toString());
 
-    const PPEPE_ADDRESS = "0xPPEPEAddress";
-    const PEPE_ADDRESS = "0xPEPEAddress";
-    const WETH_ADDRESS = "0xWETHAddress";
-    const COSMIC_DISTILLERY_ADDRESS = "0xCOSMIC_DISTILLERYAddress";
+    const NONFUNGIBLE_POSITION_MANAGER_ADDRESS = "0xC36442b4a4522E871399CD717aBDD847Ab11FE88"; 
+    const PEPE_ADDRESS = "0x6982508145454Ce325dDbE47a25d4ec3d2311933";
+    const WETH_ADDRESS = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+    const COSMIC_DISTILLERY_ADDRESS = "0xC11DdC53D75B03Eaa8BaFDdb795572059eCEb324";
 
+    // Deploy PrimordialPePe
+    const PrimordialPePe = await hre.ethers.getContractFactory("PrimordialPePe");
+    const primordialPePeInstance = await PrimordialPePe.deploy(deployer.address, deployer.address);
+    await primordialPePeInstance.deployed();
+    console.log("PrimordialPePe deployed to:", primordialPePeInstance.address);
+
+    // Deploy MiningRig with the PrimordialPePe address
     const MiningRig = await hre.ethers.getContractFactory("MiningRig");
-    const miningRig = await MiningRig.deploy(
-        PPEPE_ADDRESS,
+    const miningRigInstance = await MiningRig.deploy(
+        NONFUNGIBLE_POSITION_MANAGER_ADDRESS,
+        primordialPePeInstance.address, 
         PEPE_ADDRESS,
         WETH_ADDRESS,
         COSMIC_DISTILLERY_ADDRESS
     );
 
-    await miningRig.deployed();
+    await miningRigInstance.deployed();
+    console.log("MiningRig deployed to:", miningRigInstance.address);
 
-    console.log("MiningRig deployed to:", miningRig.address);
+    // Call the BootUp function from the MiningRig contract
+    const tx1 = await miningRigInstance.bootUp(2000, { value: hre.ethers.utils.parseEther("0.01") });
+    await tx1.wait();
+    console.log("Called BootUp function on MiningRig");
+
+    // Call the mineLiquidity function from the MiningRig contract
+    const tx2 = await miningRigInstance.mineLiquidity(2000, { value: hre.ethers.utils.parseEther("0.01") });
+    await tx2.wait();
+    console.log("Called mineLiquidity function on MiningRig");
 }
 
 main()
