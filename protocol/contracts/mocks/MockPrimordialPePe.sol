@@ -3,11 +3,9 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-abstract contract TestSpawn is ERC20, AccessControl {
+contract TestSpawn is ERC20Burnable, AccessControl {
 
     bool public minable = false;
-    string internal _name = 'TestSpawn';
-    string internal _symbol = 'TSPAWN';
     uint8 internal _decimals = 18;
     uint256 internal max_mining = 420690000000000000000000000000000;
 
@@ -16,17 +14,10 @@ abstract contract TestSpawn is ERC20, AccessControl {
     
     address allowed_miner;
 
-    constructor() {
-        _setupRole(ADMIN_ROLE, msg.sender);
+    constructor() ERC20("TestPrimordialPePe", "TPPEPE") {
+
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, msg.sender);
-    }
-
-    function name() public view virtual override returns (string memory) {
-        return _name;
-    }
-
-    function symbol() public view virtual override returns (string memory) {
-        return _symbol;
     }
 
     function decimals() public view virtual override returns (uint8) {
