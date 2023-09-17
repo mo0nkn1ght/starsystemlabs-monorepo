@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: MIT
-// Shipped as BUSL-1.1 License 
 // Credits to 0xPauly, Pond0x, Pond Coin, and Pond D🤝X
 pragma solidity ^0.8.17;
 
