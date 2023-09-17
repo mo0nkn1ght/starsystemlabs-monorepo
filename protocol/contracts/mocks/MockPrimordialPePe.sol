@@ -1,9 +1,9 @@
 pragma solidity ^0.8.0;
 
-import "../libraries/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract TestSpawn is ERC20, AccessControl {
+abstract contract TestSpawn is ERC20, AccessControl {
 
     bool public minable = false;
     string internal _name = 'TestSpawn';
