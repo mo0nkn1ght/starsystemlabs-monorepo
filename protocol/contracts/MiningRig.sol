@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Shipped as BUSL-1.1 License 
-// Credits to 0xPauly, Pond0x, and Pond Token
+// Credits to 0xPauly, Pond0x, Pond Coin, and Pond D🤝X
 pragma solidity ^0.8.17;
 
-import {SafeTransferLib} from "./SafeTransferLib.sol";
+import {SafeTransferLib} from "./libraries/SafeTransferLib.sol";
 
 contract MiningRig {
 
