@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "./IPrimordialPePe.sol";
-import "./PrimordialPlanetsLibrary.sol";
+import "./interfaces/IPrimordialPePe.sol";
+import "./libraries/PrimordialPlanetsLibrary.sol";
 
 contract PrimordialPlanets is ERC721Enumerable {
     using PrimordialPlanetsLibrary for uint8;
@@ -279,7 +279,7 @@ contract PrimordialPlanets is ERC721Enumerable {
         returns (string memory)
     {
         string memory svgString;
-        bool[64][64] memory placedPixels;
+        bool[24][24] memory placedPixels;
 
         for (uint8 i = 0; i < 9; i++) {
             uint8 thisTraitIndex = PrimordialPlanetsLibrary.parseInt(
@@ -297,10 +297,10 @@ contract PrimordialPlanets is ERC721Enumerable {
                     j * 4 + 4  
                 );
 
-                uint8 x = letterToNumber(
+                uint8 x = letterToNumber( //edit for base64 encoding
                     PrimordialPlanetsLibrary.substring(thisPixel, 0, 1)  
                 );
-                uint8 y = letterToNumber(
+                uint8 y = letterToNumber( // edit for base64 encoding
                     PrimordialPlanetsLibrary.substring(thisPixel, 1, 2)  
                 );
 
@@ -325,7 +325,7 @@ contract PrimordialPlanets is ERC721Enumerable {
 
         svgString = string(
             abi.encodePacked(
-                '<svg id="mouse-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 64 64"> ',
+                '<svg id="mouse-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 24 24"> ',
                 svgString,
                 "<style>rect{width:1px;height:1px;} #mouse-svg{shape-rendering: crispedges;} .c00{fill:#000000}...[INCLUDE ALL COLOR CODES]...</style></svg>"
             )
