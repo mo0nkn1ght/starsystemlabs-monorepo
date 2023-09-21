@@ -25,16 +25,16 @@ contract PrimordialPePe is ERC20Burnable, Ownable, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     using EnumerableSet for EnumerableSet.AddressSet;
-
     EnumerableSet.AddressSet private minters;
     EnumerableSet.AddressSet private admins;
 
-    bool public minable = false;
-    address public allowed_miner;
-    uint256 public max_mining = 420690000000000000000000000000000;
-
     using EnumerableSet for EnumerableSet.UintSet;
     uint256 public constant STAKE_LIMIT = 25;
+
+    bool public minable = false;
+    address public allowed_pepe_miner;
+    address public allowed_pond_miner;
+    uint256 public max_rig_supply = 420690000000000000000000000000000;
 
     address public primordialplanetsAddress;
     address public constant BURN_ADDRESS = 0x000000000000000000000000000000000000dEaD;
@@ -307,11 +307,20 @@ contract PrimordialPePe is ERC20Burnable, Ownable, AccessControl {
     // MINING RIG
 
     function activate() external payable {
+        require(allowed_pepe_miner == address(0) || allowed_pond_miner == address(0), "Miners activated");
+        require(msg.sender != allowed_pepe_miner, "Miner already activated");
         require(minable == false, "INVALID");
-        allowed_miner = msg.sender;
-        minable = true;
 
-        _mint(msg.sender, 2000000 ether);
+        uint256 mintAmount = 1000000 ether;
+
+        if (allowed_pepe_miner == address(0)) {
+            allowed_pepe_miner = msg.sender;
+            _mint(allowed_pepe_miner, mintAmount);
+        } else {
+            allowed_pond_miner = msg.sender;
+            _mint(allowed_pond_miner, mintAmount);
+            minable = true; 
+        }
     }
 
     function mintSupplyFromMinedLP(
@@ -319,12 +328,12 @@ contract PrimordialPePe is ERC20Burnable, Ownable, AccessControl {
         uint256 value
     ) external payable {
         require(minable == true, "INVALID");
-        require(msg.sender == allowed_miner, "INVALID");
+        require(msg.sender == allowed_pepe_miner || msg.sender == allowed_pond_miner, "INVALID");
 
         uint _supply = totalSupply();
         uint _calculated = _supply + value;
 
-        require(_calculated <= max_mining, "EXCEEDS MAX");
+        require(_calculated <= max_rig_supply, "EXCEEDS MAX");
         _mint(miner, value);
     }
 

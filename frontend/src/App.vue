@@ -265,10 +265,10 @@ html, body {
   z-index: 1;
   font-family: 'Arial', sans-serif;
   background-color: #f7f7f7;
-  height: 100vh;
   padding-top: 0;
   margin-top: 0;
   text-align: center;
+  max-width: 375px;
 }
 
 #backgroundVideo {
@@ -299,12 +299,23 @@ html, body {
   height: 16px;
 }
 
+img, .logo {
+  width: 100%;
+  height: auto; 
+}
+
 .main-container {
   display: flex;
   justify-content: center;
-  /* Remove the align-items property to avoid vertical centering */
-  height: auto; /* Adjusted from 100vh to auto to let it take natural height */
+  flex-direction: column;
+  align-items: center;
+  height: auto;
   width: 100%;
-  padding-top: 20px; /* Add padding at the top */
+  padding-top: 20px;
 }
+
+  .card {
+    width: 100%;
+    max-width: 350px;
+  }
 </style>

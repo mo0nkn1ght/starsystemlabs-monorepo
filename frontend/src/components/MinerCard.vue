@@ -107,12 +107,12 @@ export default {
   background-color: rgba(243, 244, 246, 0.5);
   padding: 20px 20px;
   border-radius: 12px;
-  height: 325px;
-  width: 625px;
+  height: 46vh;
+  width: 360px;
 }
 
 .token-input-card {
-  width: 85%;
+  width: 350px;
 }
 
 .selected-token-logo {
@@ -130,8 +130,8 @@ export default {
   transform: translate(-50%, -50%) scaleX(1);
   transition: transform 0.5s ease-in-out; 
   border-radius: 12px;
-  height: 30px;
-  max-width: 320px; 
+  height: 5vh;
+  max-width: 32vw; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,7 +189,7 @@ export default {
 
 .cope-button {
   width: 120px;
-  font-size: 11px; 
+  font-size: 1.5vw; 
 }
 
 .cope-sequence {
@@ -199,14 +199,9 @@ export default {
   max-width: 300px; 
 }
 
-.cope-image {
-    width: 20px;
-    height: 20px;
-}
-
-.cope-image-supply {
-  width: 38px;
-  height: 38  px;
+.cope-image, .cope-image-supply {
+  width: 3vw;
+  height: 3vw;
 }
 
 

@@ -93,7 +93,8 @@
     border-radius: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 1.5rem 2rem;
-    width: 650px;
+    width: 100%;
+    max-width: 350px;
     margin: 20px auto;
     height: calc(var(--main-card-height) + 50px);
     padding-top: 70px;
@@ -128,20 +129,24 @@
   .selectors {
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
     margin-bottom: 0;  /* Remove margin-bottom */
     position: absolute;  /* Absolute position so it stays at the top */
-    top: 10px;  /* Adjust based on desired position */
-    left: 100px;
-    right: 100px;
+    top: 20px;  /* Adjust based on desired position */
 }
 
-  .selectors button {
-    padding: 10px 20px;
-    font-size: 16px;
+.selectors button {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    font-size: 20px;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.5); 
     border: none;
-    border-radius: 8px;
+    border-radius: 15px;
     margin-right: 10px; 
 }
 
@@ -162,4 +167,8 @@
   position: relative; 
   z-index: 1; 
 }
+
+  .token-input-card {
+    width: 100%;
+  }
   </style>  

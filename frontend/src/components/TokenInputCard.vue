@@ -71,10 +71,14 @@ export default {
   background-color: rgba(243, 244, 246, 0.5);
   padding: 10px 20px;
   border-radius: 12px;
+  width: 350px;
+}
+
+.input-label, .balance-label, .balance-amount {
+  font-size: 1vw;
 }
 
 .input-label {
-  font-size: 14px;
   margin-bottom: 8px;
 }
 
@@ -92,28 +96,26 @@ export default {
   justify-content: flex-end; 
 }
 
+.currency-logo, .currency-logo-large {
+  width: 3.2vw;
+  height: 3.2vw;
+  
+}
+
 .currency-logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 8px; 
+  border-radius: 50%;  
 }
 
 .currency-logo-large {
-  width: 32px;
-  height: 32px;
   margin: 10px auto;
   display: block;
 }
 
 .balance-label {
-  font-size: 14px;
   color: #555;
 }
 
 .balance-amount {
-  font-size: 14px;
   color: #555;
   margin-left: 5px;
 }
@@ -133,7 +135,7 @@ export default {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.6vw;
   padding: 0;
   outline: none; 
   transition: color 0.2s; 

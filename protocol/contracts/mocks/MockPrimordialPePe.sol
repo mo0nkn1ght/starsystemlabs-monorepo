@@ -11,9 +11,9 @@ contract TestSpawn is ERC20Burnable, AccessControl {
     uint256 internal max_mining = 420690000000000000000000000000000;
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     
-    address allowed_miner;
+    address allowed_pepe_miner;
+    address allowed_pond_miner;
 
     constructor() ERC20("TestPrimordialPePe", "TPPEPE") {
 
@@ -26,11 +26,19 @@ contract TestSpawn is ERC20Burnable, AccessControl {
     }
 
     function activate() external payable {
-        require(minable == false, "INVALID");
-        allowed_miner = msg.sender;
-        minable = true;
+        require(allowed_pepe_miner == address(0) || allowed_pond_miner == address(0), "Miners activated");
+        require(msg.sender != allowed_pepe_miner, "Miner already activated");
 
-        _mint(msg.sender, 2000000 ether);
+        uint256 mintAmount = 1000000 ether;
+
+        if (allowed_pepe_miner == address(0)) {
+            allowed_pepe_miner = msg.sender;
+            _mint(allowed_pepe_miner, mintAmount);
+        } else {
+            allowed_pond_miner = msg.sender;
+            _mint(allowed_pond_miner, mintAmount);
+            minable = true; 
+        }
     }
 
     function mintSupplyFromMinedLP(
@@ -38,7 +46,7 @@ contract TestSpawn is ERC20Burnable, AccessControl {
         uint256 value
     ) external payable {
         require(minable == true, "INVALID");
-        require(msg.sender == allowed_miner, "INVALID");
+        require(msg.sender == allowed_pepe_miner || msg.sender == allowed_pond_miner, "INVALID");
 
         uint _supply = totalSupply();
         uint _calculated = _supply + value;
@@ -54,22 +62,22 @@ contract TestSpawn is ERC20Burnable, AccessControl {
 
     // Role management functions
     function grantAdminRole(address account) public {
-        require(hasRole(ADMIN_ROLE, msg.sender), "Must have admin role to grant new admin");
-        grantRole(ADMIN_ROLE, account);
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Must have admin role to grant new admin");
+        grantRole(DEFAULT_ADMIN_ROLE, account);
     }
 
     function revokeAdminRole(address account) public {
-        require(hasRole(ADMIN_ROLE, msg.sender), "Must have admin role to revoke admin");
-        revokeRole(ADMIN_ROLE, account);
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Must have admin role to revoke admin");
+        revokeRole(DEFAULT_ADMIN_ROLE, account);
     }
 
     function grantMinterRole(address account) public {
-        require(hasRole(ADMIN_ROLE, msg.sender), "Must have admin role to grant minter role");
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Must have admin role to grant minter role");
         grantRole(MINTER_ROLE, account);
     }
 
     function revokeMinterRole(address account) public {
-        require(hasRole(ADMIN_ROLE, msg.sender), "Must have admin role to revoke minter role");
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Must have admin role to revoke minter role");
         revokeRole(MINTER_ROLE, account);
     }
 }

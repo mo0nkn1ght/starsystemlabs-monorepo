@@ -39,6 +39,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  max-width: 275px;
 }
 
 .amount-input {
@@ -53,10 +55,6 @@ export default {
 
 .amount-input::placeholder {
   font-size: 36px;
-}
-
-.amount-input::placeholder {
-  font-size: 36px; 
 }
 
 /* Hide spinner buttons for Firefox */
