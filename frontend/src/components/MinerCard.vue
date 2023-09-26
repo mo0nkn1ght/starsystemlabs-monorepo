@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-between bg-gray-200 bg-opacity-50 p-5 rounded-xl aspect-w-16 aspect-h-9 max-w-[100%] md:max-w-[360px] mx-auto">
+  <div class="flex flex-col items-center justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl aspect-w-16 aspect-h-9 max-w-[100%] md:max-w-[360px] mx-auto">
     <TokenInputCard 
       class="w-[350px] mb-1"
       currency="ETH"
@@ -13,18 +13,18 @@
 
     <transition name="expand">
       <div 
-      class="cursor-pointer absolute top-[42%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl cope-harder-button max-w-[32vw] flex items-center justify-center bg-gray-200 text-black font-bold border-2 border-black shadow-md z-2 overflow-hidden whitespace-nowrap"
+      class="cursor-pointer absolute top-[42%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-[5vh] max-w-[32vw] flex items-center justify-center bg-gray-200 text-black font-bold border-2 border-black shadow-md z-2 overflow-hidden whitespace-nowrap"
         @click="toggleCopeSequence"
       >
         <span v-show="!showCopeSequence" class="w-full text-center sm:px-2.5 cope-harder-text">
           COPE HARDER
           </span>
         <div v-show="showCopeSequence" class="flex gap-2.5 w-full justify-center items-center px-2.5">
-          <img class="w-[4.5vw] h-[4.5vw]" :src="require('@/assets/eth.png')" alt="ETH">
+          <img class="w-[3vw] h-[3vw]" :src="require('@/assets/eth.png')" alt="ETH">
           <div class="arrow"></div>
-          <img class="w-[7vw] h-[7vw]" :src="require('@/assets/supply.png')" alt="Supply">
+          <img class="w-[3vw] h-[3vw]" :src="require('@/assets/supply.png')" alt="Supply">
           <div class="arrow"></div>
-          <img class="w-[4.5vw] h-[4.5vw]" :src="require('@/assets/ppepe.png')" alt="PPePe">
+          <img class="w-[3vw] h-[3vw]" :src="require('@/assets/ppepe.png')" alt="PPePe">
         </div>
       </div>
     </transition>
@@ -110,8 +110,8 @@ export default {
     font-size: 0.5rem;
   }
   .cope-harder-button {
-    height: 2rem; /* Adjust as needed */
-    padding: 0.25rem; /* Adjust as needed */
+    height: 2rem;
+    padding: 0.25rem;
   }
 }
 @media (min-width: 641px) and (max-width: 768px) {
@@ -119,8 +119,8 @@ export default {
     font-size: 0.75rem;
   }
   .cope-harder-button {
-    height: 2.5rem; /* Adjust as needed */
-    padding: 0.5rem; /* Adjust as needed */
+    height: 2.5rem;
+    padding: 0.5rem;
   }
 }
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -128,8 +128,8 @@ export default {
     font-size: 1rem;
   }
   .cope-harder-button {
-    height: 3rem; /* Adjust as needed */
-    padding: 0.75rem; /* Adjust as needed */
+    height: 3rem; 
+    padding: 0.75rem;
   }
 }
 @media (min-width: 1025px) {
@@ -137,46 +137,37 @@ export default {
     font-size: 1.25rem;
   }
   .cope-harder-button {
-    height: 3.5rem; /* Adjust as needed */
-    padding: 1rem; /* Adjust as needed */
+    height: 3.5rem;
+    padding: 1rem;
   }
 }
 
 .arrow {
   position: relative;
   display: inline-block;
-  width: 1vw; /* Adjust as needed */
-  height: 0.2vw; /* Adjust as needed */
+  width: 9px;
+  height: 1px;
   background-color: #333;
-  margin: 0 0.5vw; /* Adjust as needed */
+  margin: 0 4px;
 }
 
 .arrow::before, .arrow::after {
   content: '';
   position: absolute;
-  width: 0.5vw; /* Adjust as needed */
-  height: 0.2vw; /* Adjust as needed */
+  right: 0;
+  width: 3px;
+  height: 1px;
   background-color: #333;
 }
 
 .arrow::before {
-  top: 50%;
-  left: 0;
-  transform: translate(-50%, -50%) rotate(45deg);
+  top: -1.5px;
+  transform: rotate(45deg);
 }
 
 .arrow::after {
-  bottom: 50%;
-  left: 0;
-  transform: translate(-50%, 50%) rotate(-45deg);
-}
-
-@media (max-width: 640px) {
-  .arrow, .arrow::before, .arrow::after {
-    width: 2vw; /* Adjust as needed */
-    height: 0.4vw; /* Adjust as needed */
-    margin: 0 1vw; /* Adjust as needed */
-  }
+  bottom: -1.5px;
+  transform: rotate(-45deg);
 }
 
 </style>

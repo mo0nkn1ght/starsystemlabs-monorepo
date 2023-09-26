@@ -1,14 +1,35 @@
 <template>
-  <div class="flex flex-col items-center justify-center bg-white bg-opacity-50 rounded-xl shadow-md p-6 w-full max-w-md mx-auto my-5 relative sm:max-w-xl md:max-w-xl">
-    <div class="selectors flex justify-between mx-5 mb-4">
-      <button @click="setSelectedCard('mine')" :class="{ 'bg-gray-300': selectedCard === 'mine' }" class="w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-gray-200">
+  <div class="flex flex-col items-center justify-center bg-card-blue bg-opacity-50 rounded-xl shadow-md p-6 w-full max-w-md mx-auto my-5 relative sm:max-w-xl md:max-w-xl">
+    <div class="selectors flex space-x-4 justify-between mx-5 mb-4">
+      <button 
+        @click="setSelectedCard('mine')" 
+        :class="{
+          'bg-button border-button text-button shadow-button': selectedCard === 'mine', 
+          'text-button-inactive bg-button-inactive': selectedCard !== 'mine' // Added 'bg-button-inactive' here
+        }" 
+        class="border-button w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
+      >
         Mine
       </button>
-      <button @click="setSelectedCard('claim')" :class="{ 'bg-gray-300': selectedCard === 'claim' }" class="w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-gray-200">
+      <button 
+        @click="setSelectedCard('claim')" 
+        :class="{
+          'bg-button border-button text-button shadow-button': selectedCard === 'claim',
+          'text-button-inactive bg-button-inactive': selectedCard !== 'claim' // Added 'bg-button-inactive' here
+        }" 
+        class="border-button w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
+      >
         Claim
       </button>
-      <button @click="setSelectedCard('stake')" :class="{ 'bg-gray-300': selectedCard === 'stake' }" class="w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-gray-200">
-        Staking
+      <button 
+        @click="setSelectedCard('stake')" 
+        :class="{
+          'bg-button border-button text-button shadow-button': selectedCard === 'stake',
+          'text-button-inactive bg-button-inactive': selectedCard !== 'stake' // Added 'bg-button-inactive' here
+        }" 
+        class="border-button w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
+      >
+        Stake
       </button>
     </div>
     <div v-if="selectedCard === 'mine'" class="w-full flex justify-center">
