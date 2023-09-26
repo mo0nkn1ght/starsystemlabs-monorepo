@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center w-full max-w-[260px]"> <!-- changed justify-between to justify-center -->
+  <div class="flex items-center justify-center w-full max-w-[260px]">
     <input
       type="number"
       placeholder="0"

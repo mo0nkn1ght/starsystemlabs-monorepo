@@ -22,6 +22,9 @@ module.exports = {
       textShadow: {
         'button': '0 0 2px #0751bf',
       },
+      minHeight: {
+        'content': '400px',
+      },
     },
   },
   plugins: [],

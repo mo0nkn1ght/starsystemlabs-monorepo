@@ -3,7 +3,7 @@
     <div class="text-sm mb-2">{{ label }}</div>
     <div class="flex items-center justify-between w-full">
       <AmountInput :currency="currency" :maxAmount="balance" @inputChanged="emitAmount" ref="amountInput"/>
-      <div class="flex flex-col items-center justify-center"> <!-- changed justify-end to justify-center -->
+      <div class="flex flex-col items-center justify-center">
         <img :src="currencyLogo" alt="Currency Logo" class="w-12 h-12 rounded-full">
         <div class="flex items-center space-x-2 mt-2" v-if="accountAddress">
           <div class="text-gray-600">Balance:</div>
