@@ -1,8 +1,9 @@
 <template>
-    <button @click="connect">
-      Connect Wallet
-    </button>
-  </template>
+  <button @click="connect" class="bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 text-white px-8 py-3 rounded-xl border-none font-semibold cursor-pointer transition-opacity hover:opacity-80">
+    Connect Wallet
+  </button>
+</template>
+
   
   <script>
   export default {
@@ -14,22 +15,5 @@
     }
   }
   </script>
-  
-  <style scoped>
-button {
-  background: linear-gradient(90deg, #D67FF2, #7645D9);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  border: none;
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-</style>
 
   

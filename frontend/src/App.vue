@@ -1,10 +1,11 @@
 <template>
-  <div id="app">
-    <video autoplay muted loop id="backgroundVideo">
+  <div id="app" class="relative font-sans text-center max-w-full mx-auto overflow-hidden">
+    <video autoplay muted loop id="backgroundVideo"
+    class="fixed right-0 bottom-0 min-w-full min-h-full object-cover z-negative">
       <source src="@/assets/POC.mp4" type="video/mp4">
         Not Supported.
     </video>
-
+    
     <AppNavbar 
       :accountAddress="accountAddress"
       :networkIcon="networkIcon"
@@ -13,8 +14,9 @@
       :pepeBalance="pepeBalance"
       :pndcBalance="pndcBalance"
       :networkName="networkName"
+      class="z-10"
     />
-    <div class="main-container">
+    <div class="main-container flex items-center justify-center min-h-screen">
       <MainCard 
         :accountAddress="accountAddress" 
         :ethBalance="balance" 
@@ -254,68 +256,7 @@ export default {
 </script>
 
 <style>
-/* Global styles */
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-#app {
-  position: relative;
-  z-index: 1;
-  font-family: 'Arial', sans-serif;
-  background-color: #f7f7f7;
-  padding-top: 0;
-  margin-top: 0;
-  text-align: center;
-  max-width: 375px;
-}
-
-#backgroundVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
+.z-negative {
   z-index: -1;
-  background-size: cover;
 }
-
-.card {
-  max-width: 400px;
-  margin: 20px auto;
-}
-
-.input-wrapper {
-  display: flex;
-  flex-direction: column; /* Stack the inputs vertically */
-  gap: 10px;              /* Add some space between the inputs */
-}
-
-.network-icon {
-  width: 16px;
-  height: 16px;
-}
-
-img, .logo {
-  width: 100%;
-  height: auto; 
-}
-
-.main-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  height: auto;
-  width: 100%;
-  padding-top: 20px;
-}
-
-  .card {
-    width: 100%;
-    max-width: 350px;
-  }
 </style>

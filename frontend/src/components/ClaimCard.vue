@@ -1,15 +1,16 @@
 <template>
-    <div class="claim-card">
-        <video width="480" height="360" autoplay loop ref="videoElement" muted>
-            <source :src="selectedVideo" type="video/mp4">
-            Not Supported.
-        </video>
-      <button @click="handleClick" class="claim-button">
-        <SpinnerSVG v-if="loading" />
-        <span v-else>{{ buttonText }}</span>
-      </button>
-    </div>
-</template>  
+  <div class="flex flex-col items-center justify-center overflow-hidden w-128 h-100 rounded-lg space-y-5">
+    <video width="480" height="360" autoplay loop ref="videoElement" muted class="object-cover rounded-lg">
+      <source :src="selectedVideo" type="video/mp4">
+      Not Supported.
+    </video>
+    <button @click="handleClick" class="bg-blue-600 text-white px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700">
+      <SpinnerSVG v-if="loading" />
+      <span v-else>{{ buttonText }}</span>
+    </button>
+  </div>
+</template>
+
 
 <script>
 import SpinnerSVG from './SpinnerSVG.vue';
@@ -55,66 +56,3 @@ export default {
   }
 };
 </script>
-
-  
-<style scoped>
-.claim-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  width: 500px;
-  height: 400px;
-  border-radius: 15px;
-  gap: 20px;
-}
-
-video {
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-/* Button styles */
-.claim-button {
-  background-color: #2172E5;
-  color: white;
-  padding: 16px;
-  border: none;
-  border-radius: 16px;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 535;
-  line-height: 24px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transition: background-color 150ms ease;
-  outline: none;
-}
-
-.claim-button:hover {
-  background-color: #1A5BB6;
-}
-
-.claim-button:focus {
-  box-shadow: 0 0 0 1pt #1A5BB6;
-  background-color: #1A5BB6;
-}
-
-.claim-button:active {
-  box-shadow: 0 0 0 1pt #0E3F87;
-  background-color: #0E3F87;
-}
-
-.claim-button:disabled {
-  background-color: #EDEEF2;
-  color: #C3C5CB;
-  cursor: auto;
-  box-shadow: none;
-  border: 1px solid transparent;
-  outline: none;
-}
-</style>

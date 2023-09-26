@@ -1,22 +1,26 @@
 <template>
-    <div class="main" :style="{ '--main-card-height': mainCardHeight }">
-      <div class="selectors">
-        <button @click="setSelectedCard('mine')" :class="{active: selectedCard === 'mine'}">Mine</button>
-        <button @click="setSelectedCard('claim')" :class="{active: selectedCard === 'claim'}">Claim</button>
-        <button @click="setSelectedCard('stake')" :class="{active: selectedCard === 'stake'}">Staking</button>
-      </div>
-      <div v-if="selectedCard === 'mine'">
-        <div class="input-card-wrapper">
-          <MinerCard :ethBalance="ethBalance" :ppepeBalance="ppepeBalance" :accountAddress="accountAddress" @amountChanged="someMethodInMainCard" @connect="$emit('connect')"/>
-        </div>
-      </div>
-      <div v-if="selectedCard === 'claim'">
-        <ClaimCard />
-      </div>
-      <div v-if="selectedCard === 'stake'">
-        <StakeCard />
-      </div>
+  <div class="flex flex-col items-center justify-center bg-white bg-opacity-50 rounded-xl shadow-md p-6 w-full max-w-md mx-auto my-5 relative sm:max-w-xl md:max-w-xl">
+    <div class="selectors flex justify-between mx-5 mb-4">
+      <button @click="setSelectedCard('mine')" :class="{ 'bg-gray-300': selectedCard === 'mine' }" class="w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-gray-200">
+        Mine
+      </button>
+      <button @click="setSelectedCard('claim')" :class="{ 'bg-gray-300': selectedCard === 'claim' }" class="w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-gray-200">
+        Claim
+      </button>
+      <button @click="setSelectedCard('stake')" :class="{ 'bg-gray-300': selectedCard === 'stake' }" class="w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-gray-200">
+        Staking
+      </button>
     </div>
+    <div v-if="selectedCard === 'mine'" class="w-full flex justify-center">
+      <MinerCard :ethBalance="ethBalance" :ppepeBalance="ppepeBalance" :accountAddress="accountAddress" @amountChanged="someMethodInMainCard" @connect="$emit('connect')" />
+    </div>
+    <div v-if="selectedCard === 'claim'" class="w-full">
+      <ClaimCard />
+    </div>
+    <div v-if="selectedCard === 'stake'" class="w-full">
+      <StakeCard />
+    </div>
+  </div>
 </template>
   
   <script>
@@ -30,20 +34,6 @@
       ClaimCard,
       StakeCard,
       MinerCard
-    },
-    computed: {
-      mainCardHeight() {
-        switch (this.selectedCard) {
-          case 'mine':
-            return '400px';
-          case 'claim':
-            return '425px';
-          case 'stake':
-            return '250px';
-          default:
-            return '350px';
-        }
-      }
     },
     data() {
       return {
@@ -82,93 +72,3 @@
     }
   }
   </script>
-  
-  <style scoped>
-  .main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem 2rem;
-    width: 100%;
-    max-width: 350px;
-    margin: 20px auto;
-    height: calc(var(--main-card-height) + 50px);
-    padding-top: 70px;
-    position: relative;
-  }
-  
-  .mb-2 {
-    margin-bottom: 16px;
-  }
-  .selector {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-  
-  button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: #f3f4f6;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  button.active {
-    background-color: #ddd;
-  }
-  
-  button:hover {
-    background-color: #ccc;
-  }
-  .selectors {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    margin-bottom: 0;  /* Remove margin-bottom */
-    position: absolute;  /* Absolute position so it stays at the top */
-    top: 20px;  /* Adjust based on desired position */
-}
-
-.selectors button {
-    width: 100%;
-    height: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 30px;
-    font-size: 20px;
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.5); 
-    border: none;
-    border-radius: 15px;
-    margin-right: 10px; 
-}
-
-.selectors button:hover {
-    background-color: rgba(204, 204, 204, 0.5); 
-}
-
-.selectors button.active {
-    background-color: rgba(209, 213, 219, 0.5);
-}
-
-
-  .selectors button:last-child {
-    margin-right: 0;
-  }
-
-.input-card-wrapper {
-  position: relative; 
-  z-index: 1; 
-}
-
-  .token-input-card {
-    width: 100%;
-  }
-  </style>  

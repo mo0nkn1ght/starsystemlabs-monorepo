@@ -1,6 +1,6 @@
 <template>
-  <div class="center-container">
-    <button :disabled="insufficientFunds" @click="mine">
+  <div class="flex justify-center items-center">
+    <button :disabled="insufficientFunds" @click="mine" class="mt-5 bg-blue-600 text-white px-8 py-4 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700">
       <SpinnerSVG v-if="loading" />
       <span v-else-if="insufficientFunds">Insufficient Funds</span>
       <span v-else>Mine</span>
@@ -69,68 +69,3 @@ export default {
   }
 };
 </script>
-  
-  <style scoped>
-  button {
-    margin-top: 20px;
-  background-color: #2172E5; 
-  color: white;
-  padding: 2vh 2vw;
-  border: none;
-  border-radius: 16px;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 535;
-  line-height: 24px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transition: background-color 150ms ease;
-  outline: none;
-}
-
-button:hover {
-  background-color: #1A5BB6;
-}
-
-button:focus {
-  box-shadow: 0 0 0 1pt #1A5BB6;
-  background-color: #1A5BB6;
-}
-
-button:active {
-  box-shadow: 0 0 0 1pt #0E3F87;
-  background-color: #0E3F87;
-}
-
-button:disabled {
-  background-color: #EDEEF2;
-  color: #C3C5CB;
-  cursor: auto;
-  box-shadow: none;
-  border: 1px solid transparent;
-  outline: none;
-}
-
-.center-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-svg {
-  animation: rotate 2s linear infinite;
-}
-
-  </style>

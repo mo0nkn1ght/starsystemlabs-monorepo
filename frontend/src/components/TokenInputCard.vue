@@ -1,21 +1,19 @@
 <template>
-  <div class="token-input-card">
-    <div class="input-label">{{ label }}</div>
-    <div class="input-with-logo">
-      <AmountInput :currency="currency" :maxAmount="balance" @inputChanged="emitAmount" @maxClicked="handleMaxClicked" ref="amountInput"/>
-      <div class="right-section">
-        <img :src="currencyLogo" alt="Currency Logo" class="currency-logo">
-        <div class="balance-with-max" v-if="accountAddress">
-          <div class="balance-label">Balance:</div>
-          <div class="balance-amount">{{ balance }}</div>
-          <button @click="handleMaxClicked" class="max-button">Max</button>
+  <div class="flex flex-col items-start bg-gray-200 bg-opacity-31 p-4 rounded-xl w-full max-w-[340px]">
+    <div class="text-sm mb-2">{{ label }}</div>
+    <div class="flex items-center justify-between w-full">
+      <AmountInput :currency="currency" :maxAmount="balance" @inputChanged="emitAmount" ref="amountInput"/>
+      <div class="flex flex-col items-center justify-center"> <!-- changed justify-end to justify-center -->
+        <img :src="currencyLogo" alt="Currency Logo" class="w-12 h-12 rounded-full">
+        <div class="flex items-center space-x-2 mt-2" v-if="accountAddress">
+          <div class="text-gray-600">Balance:</div>
+          <div class="text-gray-600">{{ balance }}</div>
+          <button @click="handleMaxClicked" class="bg-transparent border-none cursor-pointer text-xl px-2 py-1 hover:text-gray-700 focus:outline-none transition-colors">Max</button>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-
 
 <script>
 import AmountInput from './AmountInput.vue';
@@ -63,91 +61,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.token-input-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: rgba(243, 244, 246, 0.5);
-  padding: 10px 20px;
-  border-radius: 12px;
-  width: 350px;
-}
-
-.input-label, .balance-label, .balance-amount {
-  font-size: 1vw;
-}
-
-.input-label {
-  margin-bottom: 8px;
-}
-
-.input-with-logo {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.right-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  justify-content: flex-end; 
-}
-
-.currency-logo, .currency-logo-large {
-  width: 3.2vw;
-  height: 3.2vw;
-  
-}
-
-.currency-logo {
-  border-radius: 50%;  
-}
-
-.currency-logo-large {
-  margin: 10px auto;
-  display: block;
-}
-
-.balance-label {
-  color: #555;
-}
-
-.balance-amount {
-  color: #555;
-  margin-left: 5px;
-}
-.balance-with-max {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px; 
-}
-
-.balance-display {
-  font-size: 14px;
-  color: #555;
-}
-
-.max-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1.6vw;
-  padding: 0;
-  outline: none; 
-  transition: color 0.2s; 
-  color: #555;
-}
-
-.max-button:hover {
-  color: #333;
-}
-
-.max-button:active {
-  color: #000;
-}
-
-</style>

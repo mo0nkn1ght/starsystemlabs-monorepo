@@ -1,49 +1,55 @@
 <template>
-    <div class="miner-card">
-      <TokenInputCard 
-        class="token-input-card mb-2"
-        currency="ETH"
-        label="You Supply:"
-        :currencyLogo="require('@/assets/eth.png')"
-        :balance="ethBalance"
-        :isEditable="false"
-        @amountChanged="handleAmountChanged"
-        :accountAddress="accountAddress"
-      />
+  <div class="flex flex-col items-center justify-between bg-gray-200 bg-opacity-50 p-5 rounded-xl aspect-w-16 aspect-h-9 max-w-[100%] md:max-w-[360px] mx-auto">
+    <TokenInputCard 
+      class="w-[350px] mb-1"
+      currency="ETH"
+      label="You Supply:"
+      :currencyLogo="require('@/assets/eth.png')"
+      :balance="ethBalance"
+      :isEditable="false"
+      @amountChanged="handleAmountChanged"
+      :accountAddress="accountAddress"
+    />
 
-      <transition name="expand">
-        <div class="cope-container" @click="toggleCopeSequence">
-          <span v-show="!showCopeSequence" class="cope-button-content">COPE HARDER</span>
-            <div v-show="showCopeSequence" class="cope-sequence-content">
-              <img class="cope-image" :src="require('@/assets/eth.png')" alt="ETH">
-              <div class="arrow"></div>
-              <img class="cope-image-supply" :src="require('@/assets/supply.png')" alt="Supply">
-              <div class="arrow"></div>
-              <img class="cope-image" :src="require('@/assets/ppepe.png')" alt="PPePe">
-            </div>
+    <transition name="expand">
+      <div 
+      class="cursor-pointer absolute top-[42%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl cope-harder-button max-w-[32vw] flex items-center justify-center bg-gray-200 text-black font-bold border-2 border-black shadow-md z-2 overflow-hidden whitespace-nowrap"
+        @click="toggleCopeSequence"
+      >
+        <span v-show="!showCopeSequence" class="w-full text-center sm:px-2.5 cope-harder-text">
+          COPE HARDER
+          </span>
+        <div v-show="showCopeSequence" class="flex gap-2.5 w-full justify-center items-center px-2.5">
+          <img class="w-[4.5vw] h-[4.5vw]" :src="require('@/assets/eth.png')" alt="ETH">
+          <div class="arrow"></div>
+          <img class="w-[7vw] h-[7vw]" :src="require('@/assets/supply.png')" alt="Supply">
+          <div class="arrow"></div>
+          <img class="w-[4.5vw] h-[4.5vw]" :src="require('@/assets/ppepe.png')" alt="PPePe">
         </div>
-      </transition>
+      </div>
+    </transition>
 
-      <TokenInputCard
-        class="token-input-card mb-2"
-        :currency="selectedToken"
-        label="You Mine:"
-        :currencyLogo="getTokenLogo(selectedToken)"
-        :balance="ppepeBalance"
-        :isEditable="false"
-        @amountChange="handleAmountChanged"
-        :accountAddress="accountAddress"
-      />
-      
-      <!-- Show 'Connect Wallet' button when accountAddress is null/undefined -->
-      <ConnectWalletButton v-if="!accountAddress" @connect="$emit('connect')" />
-      <!-- Show 'Mine' button when accountAddress is available -->
-      <MineButton v-else
-        :enteredAmount="enteredAmountData"
-        :walletBalance="walletBalanceData"
-        @mine="handleMine"
-      />
-    </div>
+    <TokenInputCard 
+      class="w-[350px] mb-4"
+      :currency="selectedToken"
+      label="You Mine:"
+      :currencyLogo="getTokenLogo(selectedToken)"
+      :balance="ppepeBalance"
+      :isEditable="false"
+      @amountChange="handleAmountChanged"
+      :accountAddress="accountAddress"
+    />
+    
+    <!-- Show 'Connect Wallet' button when accountAddress is null/undefined -->
+    <ConnectWalletButton v-if="!accountAddress" @connect="$emit('connect')" class="mt-5"/>
+    <!-- Show 'Mine' button when accountAddress is available -->
+    <MineButton v-else
+      :enteredAmount="enteredAmountData"
+      :walletBalance="walletBalanceData"
+      @mine="handleMine"
+      class="mt-5"
+    />
+  </div>
 </template>
   
 <script>
@@ -99,142 +105,78 @@ export default {
 </script>
   
 <style scoped>
-.miner-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgba(243, 244, 246, 0.5);
-  padding: 20px 20px;
-  border-radius: 12px;
-  height: 46vh;
-  width: 360px;
+@media (max-width: 640px) {
+  .cope-harder-text {
+    font-size: 0.5rem;
+  }
+  .cope-harder-button {
+    height: 2rem; /* Adjust as needed */
+    padding: 0.25rem; /* Adjust as needed */
+  }
+}
+@media (min-width: 641px) and (max-width: 768px) {
+  .cope-harder-text {
+    font-size: 0.75rem;
+  }
+  .cope-harder-button {
+    height: 2.5rem; /* Adjust as needed */
+    padding: 0.5rem; /* Adjust as needed */
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cope-harder-text {
+    font-size: 1rem;
+  }
+  .cope-harder-button {
+    height: 3rem; /* Adjust as needed */
+    padding: 0.75rem; /* Adjust as needed */
+  }
+}
+@media (min-width: 1025px) {
+  .cope-harder-text {
+    font-size: 1.25rem;
+  }
+  .cope-harder-button {
+    height: 3.5rem; /* Adjust as needed */
+    padding: 1rem; /* Adjust as needed */
+  }
 }
 
-.token-input-card {
-  width: 350px;
-}
-
-.selected-token-logo {
-  width: 32px;
-  height: 32px;
-  margin: 8px 0;
-}
-
-  /* Container for COPE HARDER button and sequence */
-  .cope-container {
-  cursor: pointer;
-  position: absolute;
-  top: 36.5%;
-  left: 50%;
-  transform: translate(-50%, -50%) scaleX(1);
-  transition: transform 0.5s ease-in-out; 
-  border-radius: 12px;
-  height: 5vh;
-  max-width: 32vw; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f3f4f6;
-  font-weight: bold;
-  color: #333;
-  z-index: 2;
-  border: 2px solid #333;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  transition: max-width 0.75s; 
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-/* Content styles for COPE HARDER button */
-.cope-button-content {
-  width: 100%;
-  text-align: center;
-  font-size: 11px;
-  padding: 0 10px;
-}
-
-/* Content styles for sequence */
-.cope-sequence-content {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  padding: 0 10px;
-}
-
-/* Transition styles */
-.cope-container.expand-enter-active, .cope-container.expand-leave-active {
-    transition: transform 0.5s ease-in-out;
-}
-.cope-container.expand-enter, .cope-container.expand-leave-to {
-  transform: translate(-50%, -50%) scaleX(2); 
-}
-
-  .cope-button, .cope-sequence {
-    border-radius: 12px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f3f4f6;
-    font-weight: bold;
-    color: #333;
-    z-index: 2;
-    border: 2px solid #333;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.5s;
-}
-
-.cope-button {
-  width: 120px;
-  font-size: 1.5vw; 
-}
-
-.cope-sequence {
-  gap: 10px;
-  padding: 0 10px;
-  width: auto; 
-  max-width: 300px; 
-}
-
-.cope-image, .cope-image-supply {
-  width: 3vw;
-  height: 3vw;
-}
-
-
-/* Right-facing arrow */
 .arrow {
   position: relative;
   display: inline-block;
-  width: 9px;
-  height: 1px;
+  width: 1vw; /* Adjust as needed */
+  height: 0.2vw; /* Adjust as needed */
   background-color: #333;
-  margin: 0 4px; 
+  margin: 0 0.5vw; /* Adjust as needed */
 }
 
 .arrow::before, .arrow::after {
   content: '';
   position: absolute;
-  right: 0;
-  width: 3px; 
-  height: 1px;
+  width: 0.5vw; /* Adjust as needed */
+  height: 0.2vw; /* Adjust as needed */
   background-color: #333;
 }
 
 .arrow::before {
-  top: -1.5px; 
-  transform: rotate(45deg);
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .arrow::after {
-  bottom: -1.5px; 
-  transform: rotate(-45deg);
+  bottom: 50%;
+  left: 0;
+  transform: translate(-50%, 50%) rotate(-45deg);
 }
 
-.mb-2 {
-    margin-bottom: 16px;
+@media (max-width: 640px) {
+  .arrow, .arrow::before, .arrow::after {
+    width: 2vw; /* Adjust as needed */
+    height: 0.4vw; /* Adjust as needed */
+    margin: 0 1vw; /* Adjust as needed */
   }
+}
+
 </style>

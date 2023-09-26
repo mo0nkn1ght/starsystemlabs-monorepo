@@ -1,17 +1,22 @@
 <template>
-  <div class="appnavbar">
-    <div class="appnavbar-content">
-      <div class="title">Star System Labs</div>
-      <div v-if="accountAddress" class="wallet-info">
-        {{ shortenedAddress }}
-        <div class="balance-details">
-          <div>Balance: {{ ethBalance }} ETH</div>
-          <div>PePe Token Balance: {{ formattedPepeBalance }} PEPE</div>
-          <div>Pond Token Balance: {{ formattedPndcBalance }} PNDC</div>
-          <div :class="networkClass">
+  <div class="bg-gray-800 text-white h-[5vh] flex items-center">
+    <div class="max-w-screen-xl mx-auto flex justify-between items-center w-full px-4">
+      <div class="text-xl sm:text-2xl">
+        Star System Labs
+      </div>
+      <div v-if="accountAddress" class="flex items-center space-x-2">
+        <div class="flex items-center">{{ shortenedAddress }}</div>
+        <div class="flex items-center space-x-2">
+          <!--<BalanceDisplay :balance="ethBalance" />
+          <BalanceDisplay :balance="formattedPepeBalance" tokenName="PePe" />
+          <BalanceDisplay :balance="formattedPndcBalance" tokenName="Pond" />!-->
+        </div>
+        <div :class="{ 'text-purple-400': networkName === 'Sepolia' }" class="flex items-center">
             {{ networkName }} 
-            <img v-if="networkIcon" :src="networkIcon" alt="Network Icon" class="network-icon">
-          </div>
+            <img v-if="networkIcon" 
+                 :src="networkIcon" 
+                 alt="Network Icon" 
+                 class="ml-2 w-5 h-5 sm:w-7 sm:h-7"> 
         </div>
       </div>
     </div>
@@ -19,7 +24,12 @@
 </template>
 
 <script>
+//import BalanceDisplay from './BalanceDisplay.vue';
+
 export default {
+  components: {
+    //BalanceDisplay
+  },
   props: ['accountAddress', 'networkIcon', 'balance', 'pepeBalance', 'pndcBalance', 'networkName'],
   computed: {
   shortenedAddress() {
@@ -47,42 +57,3 @@ export default {
   name: 'AppNavbar'
 };
 </script>
-  
-<style scoped>
-.appnavbar {
-  background-color: rgba(30, 30, 30, 0.5);
-  color: #fff;
-  padding: 10px 0;
-  margin: 0;
-}
-
-.appnavbar-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.wallet-info, .balance-details {
-  display: flex;
-  align-items: center;  
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.network-text {
-  display: flex;
-  align-items: center; 
-}
-
-.network-icon {
-  margin-left: 10px;
-  margin-bottom: 2px;
-}
-
-.testnet {
-  color: #d1b7f1;
-}
-
-</style>
