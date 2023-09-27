@@ -33,7 +33,11 @@ export default {
     walletBalance: {
       type: String,
       default: '0'
-    }
+    },
+    contractAddress: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     insufficientFunds() {
@@ -42,7 +46,7 @@ export default {
   },
   methods: {
     async mineLiquidity(amountOutMinUniswap) {
-      const contractAddress = 'YOUR_CONTRACT_ADDRESS';
+      const contractAddress = this.contractAddress;
       const abi = [/* ABI of contract */];
       const account = (await web3.eth.getAccounts())[0];
       const contract = new web3.eth.Contract(abi, contractAddress);
@@ -60,7 +64,7 @@ export default {
       const isConnected = await this.connectWallet();
       if (isConnected) {
         // TODO fix this with contract interaction
-        await this.mineLiquidity('YOUR_AMOUNT_OUT_MIN_UNISWAP_VALUE');
+        await this.mineLiquidity('YOUR_AMOUNT_OUT_MIN_UNISWAP_VALUE', 2000);
       }
   
       this.loading = false;

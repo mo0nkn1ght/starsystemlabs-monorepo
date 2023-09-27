@@ -7,9 +7,6 @@
       <div v-if="accountAddress" class="flex items-center space-x-2">
         <div class="flex items-center">{{ shortenedAddress }}</div>
         <div class="flex items-center space-x-2">
-          <!--<BalanceDisplay :balance="ethBalance" />
-          <BalanceDisplay :balance="formattedPepeBalance" tokenName="PePe" />
-          <BalanceDisplay :balance="formattedPndcBalance" tokenName="Pond" />!-->
         </div>
         <div :class="{ 'text-purple-400': networkName === 'Sepolia' }" class="flex items-center">
             {{ networkName }} 
@@ -24,12 +21,7 @@
 </template>
 
 <script>
-//import BalanceDisplay from './BalanceDisplay.vue';
-
 export default {
-  components: {
-    //BalanceDisplay
-  },
   props: ['accountAddress', 'networkIcon', 'balance', 'pepeBalance', 'pndcBalance', 'networkName'],
   computed: {
   shortenedAddress() {

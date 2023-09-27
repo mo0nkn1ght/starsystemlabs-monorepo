@@ -1,5 +1,17 @@
 <template>
   <div class="flex flex-col items-center justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl aspect-w-16 aspect-h-9 max-w-[100%] md:max-w-[360px] mx-auto">
+    <div class="rig-toggle flex cursor-pointer mb-4 rounded-xl overflow-hidden border-2 border-button shadow-md relative" @click="toggleMiningRig">
+      <div class="absolute left-0 top-0 h-full w-1/2 bg-button-active rounded-xl transition-all duration-300" 
+        :class="selectedMiningRig === 'PePe' ? 'left-0' : 'left-1/2'"></div>
+      <div 
+        :class="selectedMiningRig === 'PePe' ? 'text-button' : 'text-button-inactive'" 
+        class="flex-1 text-center py-2 px-8 transition-colors duration-300 ease-in-out z-10"
+      >PePe</div>
+      <div 
+        :class="selectedMiningRig === 'Pond' ? 'text-button' : 'text-button-inactive'" 
+        class="flex-1 text-center py-2 px-8 transition-colors duration-300 ease-in-out z-10"
+      >Pond</div>
+    </div>
     <TokenInputCard 
       class="w-[350px] mb-1"
       currency="ETH"
@@ -44,6 +56,7 @@
     <ConnectWalletButton v-if="!accountAddress" @connect="$emit('connect')" class="mt-5"/>
     <!-- Show 'Mine' button when accountAddress is available -->
     <MineButton v-else
+      :contractAddress="selectedContractAddress"
       :enteredAmount="enteredAmountData"
       :walletBalance="walletBalanceData"
       @mine="handleMine"
@@ -82,7 +95,10 @@ export default {
       selectedToken: "PePe",
       showCopeSequence: false,
       enteredAmountData: '0.00',
-      walletBalanceData: '0.00'
+      walletBalanceData: '0.00',
+      selectedMiningRig: 'PePe', // Default
+      PEPE_ADDRESS: '0xe9C5A35BefC36E8B35B93470C034caf0a8E94308',
+      POND_ADDRESS: '0x11541e990036ec13D521d584F098a83bD0F4BFC3',
     };
   },
   methods: {
@@ -99,8 +115,19 @@ export default {
     },
     toggleCopeSequence() {
       this.showCopeSequence = !this.showCopeSequence;
-    }
-  }
+    },
+    toggleMiningRig() {
+      this.selectedMiningRig = this.nextMiningRig;
+    },
+  },
+  computed: {
+    selectedContractAddress() {
+      return this.selectedMiningRig === 'PePe' ? this.PEPE_ADDRESS : this.POND_ADDRESS;
+    },
+    nextMiningRig() {
+      return this.selectedMiningRig === 'PePe' ? 'Pond' : 'PePe';
+    },
+  },
 }
 </script>
   

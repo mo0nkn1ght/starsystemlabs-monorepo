@@ -51,7 +51,6 @@ export default {
   },
   methods: {
     handleMaxClicked() {
-      // Logic to fill in the maximum amount when the max button is clicked
       this.$refs.amountInput.amount = this.balance;
     },
     emitAmount(value) {
