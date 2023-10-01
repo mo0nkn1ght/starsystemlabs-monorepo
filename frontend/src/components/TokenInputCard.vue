@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col items-start bg-card-blue bg-opacity-50 p-4 rounded-xl w-full">
+  <div class="flex flex-col items-start border-button bg-card-blue bg-opacity-80 p-4 rounded-xl w-full">
     <div class="text-sm mb-2">{{ label }}</div>
     <div class="flex items-center justify-between w-full">
       <AmountInput :currency="currency" :maxAmount="balance" @inputChanged="emitAmount" ref="amountInput" />
       <div class="flex flex-col items-center justify-center">
-        <img :src="currencyLogo" alt="Currency Logo" class="w-12 h-12 rounded-full">
+        <img :src="currencyLogo" alt="Currency Logo" class="w-12 rounded-full">
       </div>
     </div>
     <div class="flex items-center space-x-2 justify-end w-full" v-if="accountAddress">

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl w-full mx-auto">
+  <div class="flex flex-col items-center border-button justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl w-full mx-auto">
     <div class="rig-toggle flex cursor-pointer mb-4 rounded-xl overflow-hidden border-2 border-button shadow-md relative" @click="toggleMiningRig">
       <div class="absolute left-0 top-0 h-full w-1/2 bg-button-active rounded-xl transition-all duration-300" 
         :class="selectedMiningRig === 'PePe' ? 'left-0' : 'left-1/2'"></div>
@@ -27,10 +27,10 @@
 
     <transition name="expand">
       <div 
-      class="cursor-pointer absolute top-[49%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-75 text-button font-bold border-2 border-button shadow-md z-2 overflow-hidden whitespace-nowrap"
+      class="cursor-pointer absolute top-[49%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-85 text-button font-bold border-2 border-button shadow-md z-2 overflow-hidden whitespace-nowrap"
         @click="toggleCopeSequence"
       >
-        <span v-show="!showCopeSequence" class="w-full text-center sm:px-2.5 cope-harder-text">
+        <span v-show="!showCopeSequence" class="w-full text-center my-xs-1 mx-1 sm:px-2.5 cope-harder-text">
           Mine Into
           </span>
         <div v-show="showCopeSequence" class="flex gap-2.5 w-full justify-center items-center px-2.5">
@@ -112,8 +112,8 @@ export default {
       this.walletBalanceData = this.ethBalance;
     },
     getTokenLogo(token) {
-      if (token === "PePe") return require('@/assets/pepe.png');
-      if (token === "Pond") return require('@/assets/pond.png');
+      if (token === "PePe") return require('@/assets/ppepe.png');
+      if (token === "Pond") return require('@/assets/ppepe.png');
       return '';
     },
     toggleCopeSequence() {

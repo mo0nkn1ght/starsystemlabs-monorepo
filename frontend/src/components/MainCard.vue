@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center bg-card-blue bg-opacity-50 rounded-xl shadow-md p-6 w-full max-w-md mx-auto my-5 relative sm:max-w-xl md:max-w-xl">
+  <div class="flex flex-col items-center justify-center border-button bg-card-blue bg-opacity-50 rounded-xl shadow-md p-6 w-full max-w-md mx-auto my-5 relative sm:max-w-xl md:max-w-xl">
     <div class="selectors flex space-x-4 justify-between mx-5 mb-4">
       <button 
         @click="setSelectedCard('mine')" 
