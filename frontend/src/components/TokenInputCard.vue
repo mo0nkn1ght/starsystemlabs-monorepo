@@ -2,15 +2,15 @@
   <div class="flex flex-col items-start bg-gray-200 bg-opacity-31 p-4 rounded-xl w-full">
     <div class="text-sm mb-2">{{ label }}</div>
     <div class="flex items-center justify-between w-full">
-      <AmountInput :currency="currency" :maxAmount="balance" @inputChanged="emitAmount" ref="amountInput"/>
+      <AmountInput :currency="currency" :maxAmount="balance" @inputChanged="emitAmount" ref="amountInput" />
       <div class="flex flex-col items-center justify-center">
         <img :src="currencyLogo" alt="Currency Logo" class="w-12 h-12 rounded-full">
-        <div class="flex items-center space-x-2 mt-2" v-if="accountAddress">
-          <div class="text-gray-600">Balance:</div>
-          <div class="text-gray-600">{{ balance }}</div>
-          <button @click="handleMaxClicked" class="bg-transparent border-none cursor-pointer text-xl px-2 py-1 hover:text-gray-700 focus:outline-none transition-colors">Max</button>
-        </div>
       </div>
+    </div>
+    <div class="flex items-center space-x-2 justify-end w-full" v-if="accountAddress">
+      <div class="text-gray-600">Balance:</div>
+      <div class="text-gray-600">{{ balance }}</div>
+      <button @click="handleMaxClicked" class="bg-transparent border-none cursor-pointer text-xl px-2 py-1 hover:text-gray-700 focus:outline-none transition-colors">Max</button>
     </div>
   </div>
 </template>
@@ -29,8 +29,8 @@ export default {
       default: null
     },
     isEditable: {
-    type: Boolean,
-    default: true
+      type: Boolean,
+      default: true
     },
     currency: {
       type: String,
