@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-start bg-gray-200 bg-opacity-31 p-4 rounded-xl w-full">
+  <div class="flex flex-col items-start bg-card-blue bg-opacity-50 p-4 rounded-xl w-full">
     <div class="text-sm mb-2">{{ label }}</div>
     <div class="flex items-center justify-between w-full">
       <AmountInput :currency="currency" :maxAmount="balance" @inputChanged="emitAmount" ref="amountInput"/>

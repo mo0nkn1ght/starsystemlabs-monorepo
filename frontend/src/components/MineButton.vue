@@ -10,11 +10,9 @@
 
 
 <script>
+import { MiningRigABI } from '../ABI/MiningRigABI.json'
 import SpinnerSVG from './SpinnerSVG.vue';
 import Web3 from 'web3';
-
-let web3 = new Web3(Web3.givenProvider || 'https://mainnet.infura.io/v3/b8a6136e045a4280b8d59b31f1674f06');
-
 
 export default {
   components: {
@@ -23,6 +21,7 @@ export default {
   data() {
     return {
       loading: false,
+      web3: null
     };
   },
   props: {
@@ -39,37 +38,60 @@ export default {
       required: true,
     },
   },
+  created() {
+    const infuraLink = process.env.VUE_APP_INFURA_LINK || '';
+    this.web3 = new Web3(Web3.givenProvider || infuraLink);
+  },
   computed: {
     insufficientFunds() {
       return parseFloat(this.enteredAmount) > parseFloat(this.walletBalance);
     }
   },
   methods: {
-    async mineLiquidity(amountOutMinUniswap) {
-      const contractAddress = this.contractAddress;
-      const abi = [/* ABI of contract */];
-      const account = (await web3.eth.getAccounts())[0];
-      const contract = new web3.eth.Contract(abi, contractAddress);
-
-      try {
-        await contract.methods.mineLiquidity(amountOutMinUniswap).send({ from: account, value: web3.utils.toWei(this.enteredAmount, 'ether') });
-        console.log('Transaction successful');
-      } catch (error) {
-        console.error('Error occurred:', error);
-      }
-    },
     async mine() {
       this.loading = true;
-  
-      const isConnected = await this.connectWallet();
-      if (isConnected) {
-        // TODO fix this with contract interaction
-        await this.mineLiquidity('YOUR_AMOUNT_OUT_MIN_UNISWAP_VALUE', 2000);
+      try {
+        console.log('this.web3: ', this.web3); // Log the state of web3
+        console.log('this.contractAddress: ', this.contractAddress); // Log the state of contractAddress
+        console.log('this.enteredAmount: ', this.enteredAmount); // Log the state of enteredAmount
+        
+        if (!this.web3 || !this.contractAddress) {
+          console.error('Web3 or contractAddress is not initialized.');
+          return;
+        }
+        
+        const contract = new this.web3.eth.Contract(MiningRigABI, this.contractAddress);
+        const accounts = await this.web3.eth.getAccounts();
+
+        if (!accounts || accounts.length === 0) {
+          console.error('No accounts found.');
+          return;
+        }
+
+        const weiAmount = this.web3.utils.toWei(this.enteredAmount, 'ether');
+        console.log('weiAmount: ', weiAmount); // Log the state of weiAmount
+        
+        const account = accounts[0];
+        const amountOutMinUniswap = 0;
+
+        await contract.methods
+          .mineLiquidity(amountOutMinUniswap)
+          .send({ from: account, value: this.enteredAmount })
+          .on('transactionHash', (hash) => {
+            console.log('transactionHash', hash);
+          })
+          .on('confirmation', (confirmationNumber) => {
+            console.log('confirmation', confirmationNumber);
+          })
+          .on('error', console.error);
+
+        this.$emit('mine');
+      } catch (error) {
+        console.error('Mining failed:', error.message);
+      } finally {
+        this.loading = false;
       }
-  
-      this.loading = false;
-      this.$emit('mine');
-    }
-  }
+    },
+  },
 };
 </script>

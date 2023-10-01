@@ -15,7 +15,7 @@
       >Pond <img :src="require('@/assets/pond.png')" alt="Currency Logo" class="w-6 h-6 rounded-full ml-2"></div>
     </div>
     <TokenInputCard 
-      class="w-[350px] mb-1"
+      class="w-[350px] mb-1 text-button"
       currency="ETH"
       label="You Supply:"
       :currencyLogo="require('@/assets/eth.png')"
@@ -27,16 +27,16 @@
 
     <transition name="expand">
       <div 
-      class="cursor-pointer absolute top-[49%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[32vw] flex items-center justify-center bg-gray-200 text-black font-bold border-2 border-black shadow-md z-2 overflow-hidden whitespace-nowrap"
+      class="cursor-pointer absolute top-[49%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-75 text-button font-bold border-2 border-button shadow-md z-2 overflow-hidden whitespace-nowrap"
         @click="toggleCopeSequence"
       >
         <span v-show="!showCopeSequence" class="w-full text-center sm:px-2.5 cope-harder-text">
-          COPE HARDER
+          Mine Into
           </span>
         <div v-show="showCopeSequence" class="flex gap-2.5 w-full justify-center items-center px-2.5">
           <img class="w-[3vw] h-[3vw]" :src="require('@/assets/eth.png')" alt="ETH">
           <div class="arrow"></div>
-          <img class="w-[3vw] h-[3vw]" :src="require('@/assets/supply.png')" alt="Supply">
+          <img class="w-[5vw] h-[5vw]" :src="require('@/assets/supply.png')" alt="Supply">
           <div class="arrow"></div>
           <img class="w-[3vw] h-[3vw]" :src="require('@/assets/ppepe.png')" alt="PPePe">
         </div>
@@ -44,7 +44,7 @@
     </transition>
 
     <TokenInputCard 
-      class="w-[350px] mb-4"
+      class="w-[350px] mb-4 text-button"
       :currency="selectedToken"
       label="You Mine:"
       :currencyLogo="getTokenLogo(selectedToken)"
@@ -107,7 +107,9 @@ export default {
         this.$emit('mine');
     },
     handleAmountChanged(value) {
-      this.$emit('amountChanged', value);
+      console.log("Amount Changed: ", value)
+      this.enteredAmountData = value;
+      this.walletBalanceData = this.ethBalance;
     },
     getTokenLogo(token) {
       if (token === "PePe") return require('@/assets/pepe.png');
@@ -123,6 +125,17 @@ export default {
     setSelectedToken(token) {
       this.selectedToken = token;
     }
+  },
+  mounted() {
+    this.walletBalanceData = this.ethBalance;
+  },
+  watch: {
+    enteredAmountData(newVal) {
+      console.log("enteredAmountData updated: ", newVal);
+    },
+    walletBalanceData(newVal) {
+      console.log("walletBalanceData updated: ", newVal)
+    },
   },
   computed: {
     selectedContractAddress() {

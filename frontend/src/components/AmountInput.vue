@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     emitInputValue(event) {
-      this.$emit('inputChanged', event.target.value);
+      this.$emit('inputChanged', parseFloat(event.target.value));
     }
   }
 }
