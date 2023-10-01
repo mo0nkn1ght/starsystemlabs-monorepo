@@ -1,16 +1,18 @@
 <template>
-  <div class="flex flex-col items-center justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl aspect-w-16 aspect-h-9 max-w-[100%] md:max-w-[360px] mx-auto">
+  <div class="flex flex-col items-center justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl w-full mx-auto">
     <div class="rig-toggle flex cursor-pointer mb-4 rounded-xl overflow-hidden border-2 border-button shadow-md relative" @click="toggleMiningRig">
       <div class="absolute left-0 top-0 h-full w-1/2 bg-button-active rounded-xl transition-all duration-300" 
         :class="selectedMiningRig === 'PePe' ? 'left-0' : 'left-1/2'"></div>
       <div 
         :class="selectedMiningRig === 'PePe' ? 'text-button' : 'text-button-inactive'" 
-        class="flex-1 text-center py-2 px-8 transition-colors duration-300 ease-in-out z-10"
-      >PePe</div>
+        class="flex text-center py-2 px-8 transition-colors duration-300 ease-in-out z-10"
+        @click="setSelectedToken('PePe')"
+      ><img :src="require('@/assets/pepe.png')" alt="Currency Logo" class="w-6 h-6 rounded-full mr-2">PePe</div>
       <div 
         :class="selectedMiningRig === 'Pond' ? 'text-button' : 'text-button-inactive'" 
-        class="flex-1 text-center py-2 px-8 transition-colors duration-300 ease-in-out z-10"
-      >Pond</div>
+        class="flex text-center py-2 px-8 transition-colors duration-300 ease-in-out z-10"
+        @click="setSelectedToken('Pond')"
+      >Pond <img :src="require('@/assets/pond.png')" alt="Currency Logo" class="w-6 h-6 rounded-full ml-2"></div>
     </div>
     <TokenInputCard 
       class="w-[350px] mb-1"
@@ -25,7 +27,7 @@
 
     <transition name="expand">
       <div 
-      class="cursor-pointer absolute top-[42%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-[5vh] max-w-[32vw] flex items-center justify-center bg-gray-200 text-black font-bold border-2 border-black shadow-md z-2 overflow-hidden whitespace-nowrap"
+      class="cursor-pointer absolute top-[49%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[32vw] flex items-center justify-center bg-gray-200 text-black font-bold border-2 border-black shadow-md z-2 overflow-hidden whitespace-nowrap"
         @click="toggleCopeSequence"
       >
         <span v-show="!showCopeSequence" class="w-full text-center sm:px-2.5 cope-harder-text">
@@ -60,7 +62,6 @@
       :enteredAmount="enteredAmountData"
       :walletBalance="walletBalanceData"
       @mine="handleMine"
-      class="mt-5"
     />
   </div>
 </template>
@@ -119,6 +120,9 @@ export default {
     toggleMiningRig() {
       this.selectedMiningRig = this.nextMiningRig;
     },
+    setSelectedToken(token) {
+      this.selectedToken = token;
+    }
   },
   computed: {
     selectedContractAddress() {
@@ -126,8 +130,8 @@ export default {
     },
     nextMiningRig() {
       return this.selectedMiningRig === 'PePe' ? 'Pond' : 'PePe';
-    },
-  },
+    }
+  }
 }
 </script>
   

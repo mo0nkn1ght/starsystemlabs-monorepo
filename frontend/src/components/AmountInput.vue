@@ -1,10 +1,10 @@
 <template>
-  <div class="flex items-center justify-center w-full max-w-[260px]">
+  <div class="flex items-center justify-left w-full max-w-[260px]">
     <input
       type="number"
       placeholder="0"
       v-model="amount"
-      class="p-2 border-none bg-transparent w-full outline-none text-4xl overflow-hidden whitespace-nowrap text-overflow-ellipsis text-center"
+      class="border-none bg-transparent w-full outline-none text-4xl overflow-hidden whitespace-nowrap text-overflow-ellipsis text-left"
       ref="amountInput"
       @input="emitInputValue"
     />
