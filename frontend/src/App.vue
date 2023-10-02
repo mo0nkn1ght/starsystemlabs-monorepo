@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="relative font-sans text-center max-w-full mx-auto overflow-hidden">
-    <video autoplay muted loop id="backgroundVideo"
-    class="fixed right-0 bottom-0 min-w-full min-h-full object-cover z-negative">
+    <video autoplay muted loop playsinline id="backgroundVideo"
+        class="fixed right-0 bottom-0 min-w-full min-h-full object-cover z-negative">
       <source src="@/assets/POC.mp4" type="video/mp4">
         Not Supported.
     </video>
