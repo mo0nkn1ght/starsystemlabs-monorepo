@@ -10,7 +10,7 @@
 
 
 <script>
-import { MiningRigABI } from '../ABI/MiningRigABI.json'
+import MiningRigABI from '../ABI/MiningRigABI.json'
 import SpinnerSVG from './SpinnerSVG.vue';
 import Web3 from 'web3';
 
@@ -38,9 +38,11 @@ export default {
       required: true,
     },
   },
-  created() {
-    const infuraLink = process.env.VUE_APP_INFURA_LINK || '';
-    this.web3 = new Web3(Web3.givenProvider || infuraLink);
+  async created() {
+    // const infuraLink = process.env.VUE_APP_INFURA_LINK || 'https://mainnet.infura.io/v3/b8a6136e045a4280b8d59b31f1674f06';   
+    // this.web3 = new Web3(Web3.givenProvider || infuraLink);
+    await window.web3.currentProvider.enable();
+    this.web3 = new Web3(window.web3.currentProvider);
   },
   computed: {
     insufficientFunds() {
@@ -84,9 +86,10 @@ export default {
           amountOutMinUniswap: amountOutMinUniswap,
         });
 
+        const value = this.web3.utils.toWei(this.enteredAmount.toString(), "ether")
         await contract.methods
           .mineLiquidity(amountOutMinUniswap)
-          .send({ from: account, value: this.enteredAmount }) // Ensure enteredAmount is in Ether
+          .send({ from: account, value: value }) // Ensure enteredAmount is in Ether
           .on('transactionHash', (hash) => {
             console.log('transactionHash', hash);
           })
