@@ -4,7 +4,7 @@
       type="number"
       placeholder="0"
       v-model="amount"
-      class="border-none bg-transparent w-full outline-none text-4xl overflow-hidden whitespace-nowrap text-overflow-ellipsis text-left"
+      class="border-none bg-transparent w-full outline-none text-4xl text-yellow-300 overflow-hidden whitespace-nowrap text-overflow-ellipsis text-left placeholder-blue"
       ref="amountInput"
       @input="emitInputValue"
     />

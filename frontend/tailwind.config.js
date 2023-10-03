@@ -18,6 +18,7 @@ module.exports = {
       textColor: {
         'button': '#0751bf',
         'button-inactive': '#0751bf',
+        'teal': '#5d9fa5',
       },
       textShadow: {
         'button': '0 0 2px #0751bf',
@@ -27,5 +28,15 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Add a plugin to generate the placeholder color utilities
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.placeholder-blue::placeholder': {
+          color: '#0751bf',
+        },
+      };
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    },
+  ],
 }

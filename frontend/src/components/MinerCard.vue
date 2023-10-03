@@ -1,21 +1,21 @@
 <template>
-  <div class="flex flex-col items-center border-button justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl w-full mx-auto">
+  <div class="flex flex-col items-center border-1 border-button justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl w-full mx-auto">
     <div class="rig-toggle flex cursor-pointer mb-4 rounded-xl overflow-hidden border-2 border-button shadow-md relative" @click="toggleMiningRig">
       <div class="absolute left-0 top-0 h-full w-1/2 bg-button-active rounded-xl transition-all duration-300" 
         :class="selectedMiningRig === 'PePe' ? 'left-0' : 'left-1/2'"></div>
       <div 
-        :class="selectedMiningRig === 'PePe' ? 'text-button' : 'text-button-inactive'" 
-        class="flex text-center py-2 px-8 transition-colors duration-300 ease-in-out z-10"
+        :class="selectedMiningRig === 'PePe' ? 'text-yellow-300' : 'text-button-inactive'" 
+        class="flex text-center py-2 px-8 font-bold transition-colors duration-300 ease-in-out z-10"
         @click="setSelectedToken('PePe')"
       ><img :src="require('@/assets/pepe.png')" alt="Currency Logo" class="w-6 h-6 rounded-full mr-2">PePe</div>
       <div 
-        :class="selectedMiningRig === 'Pond' ? 'text-button' : 'text-button-inactive'" 
-        class="flex text-center py-2 px-8 transition-colors duration-300 ease-in-out z-10"
+        :class="selectedMiningRig === 'Pond' ? 'text-yellow-300' : 'text-button-inactive'" 
+        class="flex text-center py-2 px-8 font-bold transition-colors duration-300 ease-in-out z-10"
         @click="setSelectedToken('Pond')"
       >Pond <img :src="require('@/assets/pond.png')" alt="Currency Logo" class="w-6 h-6 rounded-full ml-2"></div>
     </div>
     <TokenInputCard 
-      class="w-[350px] mb-1 text-button"
+      class="w-[350px] mb-1 text-teal"
       currency="ETH"
       label="You Supply:"
       :currencyLogo="require('@/assets/eth.png')"
@@ -27,11 +27,11 @@
 
     <transition name="expand">
       <div 
-      class="cursor-pointer absolute top-[49%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-85 text-button font-bold border-2 border-button shadow-md z-2 overflow-hidden whitespace-nowrap"
+      class="cursor-pointer absolute top-[49.75%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-85 text-button font-bold border-2 border-button shadow-md z-2 overflow-hidden whitespace-nowrap"
         @click="toggleCopeSequence"
       >
-        <span v-show="!showCopeSequence" class="w-full text-center my-xs-1 mx-1 sm:px-2.5 cope-harder-text">
-          Mine Into
+        <span v-show="!showCopeSequence" class="w-full text-center text-sm my-xs-1 mx-1 text-yellow-300 sm:px-2.5">
+          Mine PPePe
           </span>
         <div v-show="showCopeSequence" class="flex gap-2.5 w-full justify-center items-center px-2.5">
           <img class="w-[3vw] h-[3vw]" :src="require('@/assets/eth.png')" alt="ETH">
@@ -44,7 +44,7 @@
     </transition>
 
     <TokenInputCard 
-      class="w-[350px] mb-4 text-button"
+      class="w-[350px] mb-4 text-teal"
       :currency="selectedToken"
       label="You Mine:"
       :currencyLogo="getTokenLogo(selectedToken)"
@@ -191,7 +191,7 @@ export default {
   display: inline-block;
   width: 9px;
   height: 1px;
-  background-color: #333;
+  background-color: #fde047;
   margin: 0 4px;
 }
 
@@ -201,7 +201,7 @@ export default {
   right: 0;
   width: 3px;
   height: 1px;
-  background-color: #333;
+  background-color: #fde047;
 }
 
 .arrow::before {

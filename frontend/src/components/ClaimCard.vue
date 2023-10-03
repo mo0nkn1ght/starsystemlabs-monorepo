@@ -4,7 +4,7 @@
       <source :src="selectedVideo" type="video/mp4">
       Not Supported.
     </video>
-    <button @click="handleClick" class="bg-blue-600 text-white px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700">
+    <button @click="handleClick" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors">
       <SpinnerSVG v-if="loading" />
       <span v-else>{{ buttonText }}</span>
     </button>

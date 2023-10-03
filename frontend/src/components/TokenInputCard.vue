@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-start border-button bg-card-blue bg-opacity-80 p-4 rounded-xl w-full">
+  <div class="flex flex-col items-start border-button bg-card-blue bg-opacity-100 p-4 rounded-xl w-full">
     <div class="text-sm mb-2">{{ label }}</div>
     <div class="flex items-center justify-between w-full">
       <AmountInput :currency="currency" :maxAmount="balance" @inputChanged="emitAmount" ref="amountInput" />
@@ -7,10 +7,10 @@
         <img :src="currencyLogo" alt="Currency Logo" class="w-12 rounded-full">
       </div>
     </div>
-    <div class="flex items-center space-x-2 justify-end w-full" v-if="accountAddress">
-      <div class="text-gray-600">Balance:</div>
-      <div class="text-gray-600">{{ balance }}</div>
-      <button @click="handleMaxClicked" class="bg-transparent border-none cursor-pointer text-xl px-2 py-1 hover:text-gray-700 focus:outline-none transition-colors">Max</button>
+    <div class="flex items-center text-sm space-x-2 justify-end w-full" v-if="accountAddress">
+      <div class=" text-yellow-300">Balance:</div>
+      <div class="text-yellow-300">{{ balance }}</div>
+      <button @click="handleMaxClicked" class="bg-transparent border-none cursor-pointer text-sm px-2 py-1 text-slate-300 hover:text-yellow-300 focus:outline-none transition-colors">Max</button>
     </div>
   </div>
 </template>

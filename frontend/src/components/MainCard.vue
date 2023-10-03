@@ -4,7 +4,7 @@
       <button 
         @click="setSelectedCard('mine')" 
         :class="{
-          'bg-button border-button text-button shadow-button': selectedCard === 'mine', 
+          'bg-button border-button text-yellow-300 font-medium shadow-button': selectedCard === 'mine', 
           'text-button-inactive bg-button-inactive': selectedCard !== 'mine' 
         }" 
         class="border-button w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
@@ -14,7 +14,7 @@
       <button 
         @click="setSelectedCard('claim')" 
         :class="{
-          'bg-button border-button text-button shadow-button': selectedCard === 'claim',
+          'bg-button border-button text-yellow-300 font-medium shadow-button': selectedCard === 'claim',
           'text-button-inactive bg-button-inactive': selectedCard !== 'claim'
         }" 
         class="border-button w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
@@ -24,7 +24,7 @@
       <button 
         @click="setSelectedCard('stake')" 
         :class="{
-          'bg-button border-button text-button shadow-button': selectedCard === 'stake',
+          'bg-button border-button text-yellow-300 font-medium shadow-button': selectedCard === 'stake',
           'text-button-inactive bg-button-inactive': selectedCard !== 'stake'
         }" 
         class="border-button w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"

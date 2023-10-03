@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center items-center">
-    <button :disabled="insufficientFunds" @click="mine" class="mt-5 bg-blue-600 text-white px-8 py-4 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700">
+    <button :disabled="insufficientFunds" @click="mine" class="mt-5 bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button focus:outline-none focus:ring-2 focus:ring-blue-700 text-yellow-300 px-6 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors focus:outline-none">
       <SpinnerSVG v-if="loading" />
       <span v-else-if="insufficientFunds">Insufficient Funds</span>
       <span v-else>Mine</span>
@@ -51,16 +51,23 @@ export default {
     async mine() {
       this.loading = true;
       try {
-        console.log('this.web3: ', this.web3); // Log the state of web3
-        console.log('this.contractAddress: ', this.contractAddress); // Log the state of contractAddress
-        console.log('this.enteredAmount: ', this.enteredAmount); // Log the state of enteredAmount
-        
-        if (!this.web3 || !this.contractAddress) {
-          console.error('Web3 or contractAddress is not initialized.');
+        if (!this.web3) {
+          console.error('Web3 is not initialized.');
           return;
         }
-        
+
+        if (!this.contractAddress) {
+          console.error('contractAddress is not initialized.');
+          return;
+        }
+
         const contract = new this.web3.eth.Contract(MiningRigABI, this.contractAddress);
+
+        if (!contract) {
+          console.error('Contract is not initialized.');
+          return;
+        }
+
         const accounts = await this.web3.eth.getAccounts();
 
         if (!accounts || accounts.length === 0) {
@@ -68,15 +75,18 @@ export default {
           return;
         }
 
-        const weiAmount = this.web3.utils.toWei(this.enteredAmount, 'ether');
-        console.log('weiAmount: ', weiAmount); // Log the state of weiAmount
-        
         const account = accounts[0];
         const amountOutMinUniswap = 0;
 
+        console.log('Sending Transaction with:', {
+          from: account,
+          value: this.enteredAmount, // Log the value being sent
+          amountOutMinUniswap: amountOutMinUniswap,
+        });
+
         await contract.methods
           .mineLiquidity(amountOutMinUniswap)
-          .send({ from: account, value: this.enteredAmount })
+          .send({ from: account, value: this.enteredAmount }) // Ensure enteredAmount is in Ether
           .on('transactionHash', (hash) => {
             console.log('transactionHash', hash);
           })
@@ -87,11 +97,11 @@ export default {
 
         this.$emit('mine');
       } catch (error) {
-        console.error('Mining failed:', error.message);
+        console.error('Mining failed:', error.message || error);
       } finally {
         this.loading = false;
       }
-    },
+    }
   },
 };
 </script>
