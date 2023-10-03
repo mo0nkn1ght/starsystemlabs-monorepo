@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center overflow-hidden w-128 h-100 rounded-lg space-y-5">
-    <video width="480" height="360" autoplay loop ref="videoElement" muted class="object-cover rounded-lg">
+    <video width="480" height="360" autoplay loop playsinline ref="videoElement" muted class="object-cover rounded-lg">
       <source :src="selectedVideo" type="video/mp4">
       Not Supported.
     </video>
