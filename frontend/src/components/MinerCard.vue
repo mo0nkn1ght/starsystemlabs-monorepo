@@ -5,46 +5,46 @@
         :class="selectedMiningRig === 'PePe' ? 'left-0' : 'left-1/2'"></div>
       <div 
         :class="selectedMiningRig === 'PePe' ? 'text-yellow-300' : 'text-button-inactive'" 
-        class="flex text-center py-2 px-8 font-bold transition-colors duration-300 ease-in-out z-10"
+        class="flex text-center py-2 px-8 font-bold font-origin transition-colors duration-300 ease-in-out z-10"
         @click="setSelectedToken('PePe')"
       ><img :src="require('@/assets/pepe.png')" alt="Currency Logo" class="w-6 h-6 rounded-full mr-2">PePe</div>
       <div 
         :class="selectedMiningRig === 'Pond' ? 'text-yellow-300' : 'text-button-inactive'" 
-        class="flex text-center py-2 px-8 font-bold transition-colors duration-300 ease-in-out z-10"
+        class="flex text-center py-2 px-8 font-bold font-origin transition-colors duration-300 ease-in-out z-10"
         @click="setSelectedToken('Pond')"
       >Pond <img :src="require('@/assets/pond.png')" alt="Currency Logo" class="w-6 h-6 rounded-full ml-2"></div>
     </div>
     <TokenInputCard 
-      class="w-[350px] mb-1 text-teal"
+      class="w-[350px] mb-1 text-teal font-origin"
       currency="ETH"
       label="You Supply:"
       :currencyLogo="require('@/assets/eth.png')"
       :balance="ethBalance"
-      :isEditable="false"
+      :isEditable="true"
       @amountChanged="handleAmountChanged"
       :accountAddress="accountAddress"
     />
 
     <transition name="expand">
-      <div 
-      class="cursor-pointer absolute top-[49.75%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-85 text-button font-bold border-2 border-button shadow-md z-2 overflow-hidden whitespace-nowrap"
-        @click="toggleCopeSequence"
-      >
-        <span v-show="!showCopeSequence" class="w-full text-center text-sm my-xs-1 mx-1 text-yellow-300 sm:px-2.5">
-          Mine PPePe
-          </span>
-        <div v-show="showCopeSequence" class="flex gap-2.5 w-full justify-center items-center px-2.5">
-          <img class="w-[3vw] h-[3vw]" :src="require('@/assets/eth.png')" alt="ETH">
-          <div class="arrow"></div>
-          <img class="w-[5vw] h-[5vw]" :src="supplyImageSrc" alt="Supply">
-          <div class="arrow"></div>
-          <img class="w-[3vw] h-[3vw]" :src="require('@/assets/ppepe.png')" alt="PPePe">
-        </div>
-      </div>
-    </transition>
+  <div 
+    class="cursor-pointer absolute top-[49.75%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[90vw] sm:max-w-[70vw] md:max-w-[50vw] lg:max-w-[40vw] xl:max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-85 text-button font-bold border-2 border-button shadow-md z-2 overflow-hidden whitespace-nowrap"
+    @click="toggleCopeSequence"
+  >
+    <span v-show="!showCopeSequence" class="w-full text-center text-xs my-xs-1 mx-1 text-yellow-300 sm:px-2.5 font-origin">
+      Mine PPePe
+    </span>
+    <div v-show="showCopeSequence" class="flex gap-2.5 w-full justify-center items-center px-2.5">
+      <img class="max-h-6 md:max-h-6 lg:max-h-8 w-auto" :src="require('@/assets/eth.png')" alt="ETH">
+      <div class="arrow"></div>
+      <img class="max-h-9 md:max-h-9 lg:max-h-10 w-auto" :src="supplyImageSrc" alt="Supply">
+      <div class="arrow"></div>
+      <img class="max-h-6 md:max-h-6 lg:max-h-8 w-auto" :src="require('@/assets/ppepe.png')" alt="PPePe">
+    </div>
+  </div>
+</transition>
 
     <TokenInputCard 
-      class="w-[350px] mb-4 text-teal"
+      class="w-[350px] mb-4 text-teal font-origin"
       :currency="selectedToken"
       label="You Mine:"
       :currencyLogo="getTokenLogo(selectedToken)"

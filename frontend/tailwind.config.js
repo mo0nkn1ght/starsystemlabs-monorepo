@@ -4,6 +4,13 @@ module.exports = {
     extend: {
       fontFamily: {
         'nixie': ['NixieOne', 'nixieone'], 
+        'dune': ['Dune', 'dune'],
+        'spaceage': ['SpaceAge', 'spaceage'],
+        'origin': ['OriginTech', 'origintech'],
+        'tesla': ['Tesla', 'tesla']
+      },
+      fontSize: {
+        'xxs': ['0.5rem', '0.65rem'] 
       },
       borderWidth: {
         'button': '2px',

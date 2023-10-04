@@ -14,8 +14,12 @@
         @connect="connectWallet" 
       />
       <div v-if="accountAddress" class="flex flex-col items-center mt-5 font-nixie sm:items-start">
-        <p class="text-yellow-300 font-thin sm:text-xs md:text-sm">
-          Address: {{ shortenedAddress }}
+        <p class="text-yellow-300 font-thin sm:text-xs md:text-sm cursor-pointer"
+          @click="disconnectWallet"
+          @mouseover="hovering = true"
+          @mouseleave="hovering = false">
+          <span v-if="hovering">Disconnect Wallet</span>
+          <span v-else>Address: {{ shortenedAddress }}</span>
         </p>
         <div v-if="networkName" class="flex items-center mt-2 text-yellow-300 font-extrabold sm:text-xs md:text-sm md:absolute md:bottom-5 md:right-5">
           <p :class="{ 'text-purple-400': networkName === 'Sepolia' }" class="mr-2">
@@ -79,10 +83,18 @@ export default {
       currentContractAddresses: {
         pepe: null,
         pndc: null
-      }
+      },
+      hovering: false
     };
   },
   methods: {
+    disconnectWallet() {
+      this.accountAddress = null;
+      this.balance = null;
+      this.ppepeBalance = null;
+      this.pepeBalance = null;
+      this.pndcBalance = null;
+    },
     formatBalance(balance) {
       return parseFloat(balance).toFixed(2);
     },

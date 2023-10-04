@@ -2,15 +2,15 @@
   <div class="flex flex-col items-start border-button bg-card-blue bg-opacity-100 p-4 rounded-xl w-full">
     <div class="text-sm mb-2">{{ label }}</div>
     <div class="flex items-center justify-between w-full">
-      <AmountInput :currency="currency" :maxAmount="balance" @inputChanged="emitAmount" ref="amountInput" />
+      <AmountInput :currency="currency" :maxAmount="balance" :isEditable="isEditable" @inputChanged="emitAmount" ref="amountInput" />
       <div class="flex flex-col items-center justify-center">
         <img :src="currencyLogo" alt="Currency Logo" class="w-12 rounded-full">
       </div>
     </div>
-    <div class="flex items-center text-sm space-x-2 justify-end w-full" v-if="accountAddress">
-      <div class=" text-yellow-300">Balance:</div>
-      <div class="text-yellow-300">{{ balance }}</div>
-      <button @click="handleMaxClicked" class="bg-transparent border-none cursor-pointer text-sm px-2 py-1 text-slate-300 hover:text-yellow-300 focus:outline-none transition-colors">Max</button>
+    <div class="flex items-center text-xxs sm:text-xs md:text-sm lg:text-base xl:text-lg justify-end w-full" v-if="accountAddress">
+      <div class="text-yellow-300 flex-shrink-0">Balance:</div>
+      <div class="text-yellow-300 ml-1 flex-shrink-0">{{ balance }}</div>
+      <button @click="handleMaxClicked" class="ml-1 sm:ml-2 md:ml-4 lg:ml-6 xl:ml-8 bg-transparent border-none cursor-pointer px-2 py-1 text-slate-300 hover:text-yellow-300 focus:outline-none transition-colors">Max</button>
     </div>
   </div>
 </template>

@@ -4,9 +4,10 @@
       type="number"
       placeholder="0"
       v-model="amount"
-      class="border-none bg-transparent w-full outline-none text-4xl text-yellow-300 overflow-hidden whitespace-nowrap text-overflow-ellipsis text-left placeholder-blue"
+      class="border-none  focus:outline-none bg-transparent w-full outline-none text-4xl text-yellow-300 overflow-hidden whitespace-nowrap text-overflow-ellipsis text-left placeholder-blue"
       ref="amountInput"
       @input="emitInputValue"
+      :readonly="!isEditable"
     />
   </div>
 </template>
@@ -18,6 +19,10 @@ export default {
     maxAmount: {
       type: String,
       default: "0"
+    },
+    isEditable: {
+      type: Boolean,
+      defaul: true
     }
   },
   data() {
