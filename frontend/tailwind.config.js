@@ -2,6 +2,9 @@ module.exports = {
   purge: ['./src/**/*.vue', './public/index.html'],
   theme: {
     extend: {
+      fontFamily: {
+        'nixie': ['NixieOne', 'nixieone'], 
+      },
       borderWidth: {
         'button': '2px',
       },
@@ -29,7 +32,6 @@ module.exports = {
     },
   },
   plugins: [
-    // Add a plugin to generate the placeholder color utilities
     function ({ addUtilities }) {
       const newUtilities = {
         '.placeholder-blue::placeholder': {

@@ -36,7 +36,7 @@
         <div v-show="showCopeSequence" class="flex gap-2.5 w-full justify-center items-center px-2.5">
           <img class="w-[3vw] h-[3vw]" :src="require('@/assets/eth.png')" alt="ETH">
           <div class="arrow"></div>
-          <img class="w-[5vw] h-[5vw]" :src="require('@/assets/supply.png')" alt="Supply">
+          <img class="w-[5vw] h-[5vw]" :src="supplyImageSrc" alt="Supply">
           <div class="arrow"></div>
           <img class="w-[3vw] h-[3vw]" :src="require('@/assets/ppepe.png')" alt="PPePe">
         </div>
@@ -52,6 +52,7 @@
       :isEditable="false"
       @amountChange="handleAmountChanged"
       :accountAddress="accountAddress"
+      :quote="localQuote"
     />
     
     <!-- Show 'Connect Wallet' button when accountAddress is null/undefined -->
@@ -62,6 +63,7 @@
       :enteredAmount="enteredAmountData"
       :walletBalance="walletBalanceData"
       @mine="handleMine"
+      @quoteObtained="handleQuoteObtained"
     />
   </div>
 </template>
@@ -70,6 +72,9 @@
 import ConnectWalletButton from './ConnectWalletButton.vue';
 import TokenInputCard from './TokenInputCard.vue';
 import MineButton from './MineButton.vue';
+
+import supplyPepe from '@/assets/supply-pepe.png';
+import supplyPond from '@/assets/supply-pond.png';
 
 export default {
   components: {
@@ -100,9 +105,15 @@ export default {
       selectedMiningRig: 'PePe', // Default
       PEPE_ADDRESS: '0xe9C5A35BefC36E8B35B93470C034caf0a8E94308',
       POND_ADDRESS: '0x11541e990036ec13D521d584F098a83bD0F4BFC3',
+      supplyPepe,
+      supplyPond,
+      localQuote: null,
     };
   },
   methods: {
+    handleQuoteObtained(quote) {
+      this.localQuote = quote;
+    },
     handleMining() {
         this.$emit('mine');
     },
@@ -138,6 +149,9 @@ export default {
     },
   },
   computed: {
+    supplyImageSrc() {
+      return this.selectedToken === "PePe" ? this.supplyPepe : this.supplyPond;
+    },
     selectedContractAddress() {
       return this.selectedMiningRig === 'PePe' ? this.PEPE_ADDRESS : this.POND_ADDRESS;
     },

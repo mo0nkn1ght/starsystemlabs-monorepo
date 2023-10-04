@@ -1,19 +1,19 @@
 <template>
   <div class="flex flex-col items-center w-full text-center">
-    <TokenInputCard currency="PPePe" label="You Stake:" :currencyLogo="require('@/assets/ppepe.png')" class="mb-6 text-teal"/>
-    <button @click="handleStakeClick('ppepe')" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 mb-4">
+    <TokenInputCard currency="PPePe" label="You Stake:" :currencyLogo="require('@/assets/ppepe.png')" class="mb-4 text-teal"/>
+    <button @click="handleStakeClick('ppepe')" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 mb-6">
       <SpinnerSVG v-if="loadingPpepe" />
       <span v-else>{{ stakeButtonTextPpepe }}</span>
     </button>
 
-    <TokenInputCard currency="PePe" label="You Stake:" :currencyLogo="require('@/assets/pepe.png')" class="mb-6 text-teal"/>
-    <button @click="handleStakeClick('pepe')" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 mb-4">
+    <TokenInputCard currency="PePe" label="You Stake:" :currencyLogo="require('@/assets/pepe.png')" class="mb-4 text-teal"/>
+    <button @click="handleStakeClick('pepe')" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 mb-6">
       <SpinnerSVG v-if="loadingPepe" />
       <span v-else>{{ stakeButtonTextPepe }}</span>
     </button>
 
-    <TokenInputCard currency="Pond" label="You Stake:" :currencyLogo="require('@/assets/pond.png')" class="mb-6 text-teal"/>
-    <button @click="handleStakeClick('pond')" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700">
+    <TokenInputCard currency="Pond" label="You Stake:" :currencyLogo="require('@/assets/pond.png')" class="mb-4 text-teal"/>
+    <button @click="handleStakeClick('pond')" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 mb-2">
       <SpinnerSVG v-if="loadingPond" />
       <span v-else>{{ stakeButtonTextPond }}</span>
     </button>
@@ -42,7 +42,13 @@ export default {
 
       stakeButtonClickCountPond: 0,
       stakeButtonTextPond: 'Stake Pond',
-      loadingPond: false
+      loadingPond: false,
+      
+      alternativeNames: {
+      ppepe: 'PPEPE',
+      pepe: 'PEPE',
+      pond: 'PNDC'
+    }
     };
   },
   methods: {
@@ -63,7 +69,7 @@ export default {
         'Coming Soon',
         'You are Too Early',
         '2 Earl Lee',
-        `${token.toUpperCase()} Rewards Incoming!!`,
+        `${this.alternativeNames[token]} Rewards Incoming!!`,
         'COPE HARDER'
       ];
 
@@ -73,6 +79,6 @@ export default {
         this[`loading${token.charAt(0).toUpperCase() + token.slice(1)}`] = true;
       }
     }
-  }
+      }
 };
 </script>

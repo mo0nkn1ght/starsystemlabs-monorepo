@@ -47,6 +47,10 @@ export default {
     balance: {
       type: String,
       default: '0.00'
+    },
+    quote: {
+      type: String,
+      default: null
     }
   },
   methods: {

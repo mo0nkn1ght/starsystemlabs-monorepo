@@ -8,7 +8,6 @@
   </div>
 </template>
 
-
 <script>
 import MiningRigABI from '../ABI/MiningRigABI.json'
 import SpinnerSVG from './SpinnerSVG.vue';
@@ -39,8 +38,6 @@ export default {
     },
   },
   async created() {
-    // const infuraLink = process.env.VUE_APP_INFURA_LINK || 'https://mainnet.infura.io/v3/b8a6136e045a4280b8d59b31f1674f06';   
-    // this.web3 = new Web3(Web3.givenProvider || infuraLink);
     await window.web3.currentProvider.enable();
     this.web3 = new Web3(window.web3.currentProvider);
   },
@@ -82,19 +79,21 @@ export default {
 
         console.log('Sending Transaction with:', {
           from: account,
-          value: this.enteredAmount, // Log the value being sent
+          value: this.enteredAmount,
           amountOutMinUniswap: amountOutMinUniswap,
         });
 
         const value = this.web3.utils.toWei(this.enteredAmount.toString(), "ether")
         await contract.methods
           .mineLiquidity(amountOutMinUniswap)
-          .send({ from: account, value: value }) // Ensure enteredAmount is in Ether
+          .send({ from: account, value: value })
           .on('transactionHash', (hash) => {
             console.log('transactionHash', hash);
           })
-          .on('confirmation', (confirmationNumber) => {
+          .on('confirmation', (confirmationNumber, receipt) => {
             console.log('confirmation', confirmationNumber);
+            const quote = receipt.events.MinedTokens.returnValues.quote;
+            this.$emit('quoteObtained', quote);
           })
           .on('error', console.error);
 

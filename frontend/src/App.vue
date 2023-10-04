@@ -6,30 +6,33 @@
         Not Supported.
     </video>
     
-    <AppNavbar 
-      :accountAddress="accountAddress"
-      :networkIcon="networkIcon"
-      :balance="balance"
-      :ppepeBalance="ppepeBalance"
-      :pepeBalance="pepeBalance"
-      :pndcBalance="pndcBalance"
-      :networkName="networkName"
-      class="z-10"
-    />
-    <div class="main-container flex items-center justify-center min-h-screen">
+    <div class="main-container flex flex-col items-center justify-center min-h-screen">
       <MainCard 
         :accountAddress="accountAddress" 
         :ethBalance="balance" 
         :ppepeBalance="ppepeBalance"
         @connect="connectWallet" 
       />
+      <div v-if="accountAddress" class="flex flex-col items-center mt-5 font-nixie sm:items-start">
+        <p class="text-yellow-300 font-thin sm:text-xs md:text-sm">
+          Address: {{ shortenedAddress }}
+        </p>
+        <div v-if="networkName" class="flex items-center mt-2 text-yellow-300 font-extrabold sm:text-xs md:text-sm md:absolute md:bottom-5 md:right-5">
+          <p :class="{ 'text-purple-400': networkName === 'Sepolia' }" class="mr-2">
+            {{ networkName }}
+          </p>
+          <img v-if="networkIcon" 
+               :src="networkIcon" 
+               alt="Network Icon" 
+               class="w-6 h-6">
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { formatEther, Contract, BrowserProvider } from "ethers";
-import AppNavbar from '@/components/AppNavbar.vue';
 import MainCard from '@/components/MainCard.vue';
 
 
@@ -53,7 +56,6 @@ export default {
   name: 'App',
   components: {
     MainCard,
-    AppNavbar
   },
   data() {
     return {
@@ -205,7 +207,7 @@ export default {
     const networkIdStr = String(chainId);
     switch (networkIdStr) {
       case "1":
-        this.networkName = "Mainnet";
+        this.networkName = "Connected:";
         this.networkIcon = require('@/assets/eth.png');
         this.currentContractAddresses = this.contractAddresses.mainnet;
         break;
@@ -220,8 +222,7 @@ export default {
         this.currentContractAddresses.pndc = null;  
     }
   }
-},
-
+  },
   mounted() {
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', (accounts) => {
@@ -251,7 +252,15 @@ export default {
 
       this.getNetworkVersion();  // Fetch the current network version
     }
-  }
+  },
+  computed: {
+    shortenedAddress() {
+      if (this.accountAddress) {
+        return `${this.accountAddress.slice(0, 6)}...${this.accountAddress.slice(-4)}`;
+      }
+      return null;
+    }
+  },
 }
 </script>
 

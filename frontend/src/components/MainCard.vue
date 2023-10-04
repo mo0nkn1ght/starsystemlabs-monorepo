@@ -1,13 +1,13 @@
 <template>
   <div class="flex flex-col items-center justify-center border-button bg-card-blue bg-opacity-50 rounded-xl shadow-md p-6 w-full max-w-md mx-auto my-5 relative sm:max-w-xl md:max-w-xl">
-    <div class="selectors flex space-x-4 justify-between mx-5 mb-4">
+    <div class="selectors flex space-x-4 justify-between mx-5 mb-4 w-full">
       <button 
         @click="setSelectedCard('mine')" 
         :class="{
           'bg-button border-button text-yellow-300 font-medium shadow-button': selectedCard === 'mine', 
           'text-button-inactive bg-button-inactive': selectedCard !== 'mine' 
         }" 
-        class="border-button w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
+        class="border-button w-full h-10 flex items-center justify-center px-2 sm:px-8 py-2 text-xs sm:text-base rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
       >
         Mine
       </button>
@@ -17,7 +17,7 @@
           'bg-button border-button text-yellow-300 font-medium shadow-button': selectedCard === 'claim',
           'text-button-inactive bg-button-inactive': selectedCard !== 'claim'
         }" 
-        class="border-button w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
+        class="border-button w-full h-10 flex items-center justify-center px-2 sm:px-8 py-2 text-xs sm:text-base rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
       >
         Claim
       </button>
@@ -27,19 +27,20 @@
           'bg-button border-button text-yellow-300 font-medium shadow-button': selectedCard === 'stake',
           'text-button-inactive bg-button-inactive': selectedCard !== 'stake'
         }" 
-        class="border-button w-full h-10 flex items-center justify-center px-8 py-2 rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
+        class="border-button w-full h-10 flex items-center justify-center px-2 sm:px-8 py-2 text-xs sm:text-base rounded-lg cursor-pointer transition-colors ease-in-out duration-300 hover:bg-button-hover active:bg-button-active"
       >
         Stake
       </button>
     </div>
-    <div v-if="selectedCard === 'mine'" class="w-full flex justify-center">
-      <MinerCard :ethBalance="ethBalance" :ppepeBalance="ppepeBalance" :accountAddress="accountAddress" @amountChanged="someMethodInMainCard" @connect="$emit('connect')" />
-    </div>
-    <div v-if="selectedCard === 'claim'" class="w-full">
-      <ClaimCard />
-    </div>
-    <div v-if="selectedCard === 'stake'" class="w-full">
-      <StakeCard />
+
+      <div v-if="selectedCard === 'mine'" class="flex justify-center w-full">
+        <MinerCard :ethBalance="ethBalance" :ppepeBalance="ppepeBalance" :accountAddress="accountAddress" @amountChanged="someMethodInMainCard" @connect="$emit('connect')" />
+      </div>
+      <div v-if="selectedCard === 'claim'" class="w-full">
+        <ClaimCard />
+      </div>
+      <div v-if="selectedCard === 'stake'" class="w-full">
+        <StakeCard />
     </div>
   </div>
 </template>
