@@ -75,7 +75,7 @@ export default {
         }
 
         const account = accounts[0];
-        const amountOutMinUniswap = 0;
+        const amountOutMinUniswap = 2000;
 
         console.log('Sending Transaction with:', {
           from: account,
