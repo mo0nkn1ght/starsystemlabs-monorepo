@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center w-full text-center">
+  <div class="flex flex-col items-center font-origin w-full text-center">
     <TokenInputCard currency="PPePe" label="You Stake:" :currencyLogo="require('@/assets/ppepe.png')" class="mb-4 text-teal"/>
     <button @click="handleStakeClick('ppepe')" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 mb-6">
       <SpinnerSVG v-if="loadingPpepe" />

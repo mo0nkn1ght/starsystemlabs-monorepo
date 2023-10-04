@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center items-center">
-    <button :disabled="insufficientFunds" @click="mine" class="mt-5 bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button focus:outline-none focus:ring-2 focus:ring-blue-700 text-yellow-300 px-6 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors focus:outline-none">
+    <button :disabled="insufficientFunds" @click="mine" class="mt-5 bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button font-origin focus:outline-none focus:ring-2 focus:ring-blue-700 text-yellow-300 px-6 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors focus:outline-none">
       <SpinnerSVG v-if="loading" />
       <span v-else-if="insufficientFunds">Insufficient Funds</span>
       <span v-else>Mine</span>
@@ -83,8 +83,8 @@ export default {
           amountOutMinUniswap: amountOutMinUniswap,
         });
 
-        const value = this.web3.utils.toWei(this.enteredAmount.toString(), "ether")
-        await contract.methods
+        const value = this.web3.utils.toHex(this.enteredAmount.toString())
+          await contract.methods
           .mineLiquidity(amountOutMinUniswap)
           .send({ from: account, value: value })
           .on('transactionHash', (hash) => {
