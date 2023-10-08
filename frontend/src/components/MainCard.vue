@@ -72,7 +72,15 @@
         type: String,
         default: "0.00"
       },
+      ppepeBalance: {
+        type: String,
+        default: "0.00"
+      },
       pepeBalance: {
+        type: String,
+        default: "0.00"
+      },
+      pndcBalance: {
         type: String,
         default: "0.00"
       }

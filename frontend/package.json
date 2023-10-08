@@ -9,6 +9,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/contracts": "^5.7.0",
     "core-js": "^3.8.3",
     "ethers": "^6.7.1",
     "postcss-import": "^15.1.0",
