@@ -73,7 +73,8 @@ export default {
       contractAddresses: {
         mainnet: {
           pepe: '0x6982508145454ce325ddbe47a25d4ec3d2311933',
-          pndc: '0x423f4e6138E475D85CF7Ea071AC92097Ed631eea'
+          pndc: '0x423f4e6138E475D85CF7Ea071AC92097Ed631eea',
+          ppepe: '0x98830a6cc6f8964cec4ffd65f19edebba6fef865'
         },
         sepolia: {
           pepe: '0x2BddD10ed278b9420519D7F00aa6989486482764',
@@ -82,7 +83,8 @@ export default {
       },
       currentContractAddresses: {
         pepe: null,
-        pndc: null
+        pndc: null,
+        ppepe: null
       },
       hovering: false
     };
@@ -139,10 +141,10 @@ export default {
             const pepeTokenBalance = await pepeContract.balanceOf(this.accountAddress);
             console.log("Raw PEPE balance:", pepeTokenBalance.toString());
             this.pepeBalance = this.abbreviateNumber(formatEther(pepeTokenBalance));
-        } catch (error) {
+          } catch (error) {
             console.error("Error fetching PEPE balance:", error);
             this.pepeBalance = "0";
-        }
+          }
 
 
           const pndcContract = new Contract(this.currentContractAddresses.pndc, ERC20_ABI, provider);
@@ -150,10 +152,20 @@ export default {
             const pndcTokenBalance = await pndcContract.balanceOf(this.accountAddress);
             console.log("Raw PNDC balance:", pndcTokenBalance.toString());
             this.pndcBalance = this.abbreviateNumber(formatEther(pndcTokenBalance));
-        } catch (error) {
+          } catch (error) {
             console.error("Error fetching PNDC balance:", error);
             this.pndcBalance = "0";
-        }
+          }
+          
+          const ppepeContract = new Contract(this.currentContractAddresses.ppepe, ERC20_ABI, provider);
+          try {
+            const ppepeTokenBalance = await ppepeContract.balanceOf(this.accountAddress);
+            console.log("Raw PPEPE balance:", ppepeTokenBalance.toString());
+            this.ppepeBalance = this.abbreviateNumber(formatEther(ppepeTokenBalance));
+          } catch (error) {
+            console.error("Error fetching PPEPE balance:", error);
+            this.ppepeBalance = "0";
+          }
 
           const networkId = window.ethereum.networkVersion;
           this.setNetwork(networkId);
@@ -165,7 +177,7 @@ export default {
       } else {
         console.error("Ethereum provider not detected");
       }
-    
+
       window.ethereum.on('chainChanged', async (chainId) => {
         this.setNetwork(Number(chainId));
         await this.updateBalance();
@@ -182,70 +194,69 @@ export default {
       });
     },
 
-    
-    
+
     async updateBalance() {
       const provider = new BrowserProvider(window.ethereum);
 
       const weiBalance = await window.ethereum.request({
-          method: 'eth_getBalance',
-          params: [this.accountAddress, 'latest']
+        method: 'eth_getBalance',
+        params: [this.accountAddress, 'latest']
       });
       this.balance = this.formatBalance(formatEther(weiBalance));
 
       const pepeContract = new Contract(this.currentContractAddresses.pepe, ERC20_ABI, provider);
       try {
-          const pepeTokenBalance = await pepeContract.balanceOf(this.accountAddress);
-          console.log("Raw PEPE balance:", pepeTokenBalance.toString());
-          this.pepeBalance = this.formatBalance(formatEther(pepeTokenBalance));
+        const pepeTokenBalance = await pepeContract.balanceOf(this.accountAddress);
+        console.log("Raw PEPE balance:", pepeTokenBalance.toString());
+        this.pepeBalance = this.formatBalance(formatEther(pepeTokenBalance));
       } catch (error) {
-          console.error("Error fetching PEPE balance:", error);
-          this.pepeBalance = "0";
+        console.error("Error fetching PEPE balance:", error);
+        this.pepeBalance = "0";
       }
 
       const pndcContract = new Contract(this.currentContractAddresses.pndc, ERC20_ABI, provider);
       try {
-          const pndcTokenBalance = await pndcContract.balanceOf(this.accountAddress);
-          console.log("Raw PNDC balance:", pndcTokenBalance.toString());
-          this.pndcBalance = this.formatBalance(formatEther(pndcTokenBalance));
+        const pndcTokenBalance = await pndcContract.balanceOf(this.accountAddress);
+        console.log("Raw PNDC balance:", pndcTokenBalance.toString());
+        this.pndcBalance = this.formatBalance(formatEther(pndcTokenBalance));
       } catch (error) {
-          console.error("Error fetching PNDC balance:", error);
-          this.pndcBalance = "0";
+        console.error("Error fetching PNDC balance:", error);
+        this.pndcBalance = "0";
       }
 
     },
 
-  setNetwork(chainId) {
-    const networkIdStr = String(chainId);
-    switch (networkIdStr) {
-      case "1":
-        this.networkName = "Connected:";
-        this.networkIcon = require('@/assets/eth.png');
-        this.currentContractAddresses = this.contractAddresses.mainnet;
-        break;
-      case "11155111":
-        this.networkName = "Sepolia";
-        this.networkIcon = require('@/assets/eth.png');
-        this.currentContractAddresses = this.contractAddresses.sepolia;
-        break;
-      default:
-        this.networkName = "Unknown Network";
-        this.currentContractAddresses.pepe = null; 
-        this.currentContractAddresses.pndc = null;  
+    setNetwork(chainId) {
+      const networkIdStr = String(chainId);
+      switch (networkIdStr) {
+        case "1":
+          this.networkName = "Connected:";
+          this.networkIcon = require('@/assets/eth.png');
+          this.currentContractAddresses = this.contractAddresses.mainnet;
+          break;
+        case "11155111":
+          this.networkName = "Sepolia";
+          this.networkIcon = require('@/assets/eth.png');
+          this.currentContractAddresses = this.contractAddresses.sepolia;
+          break;
+        default:
+          this.networkName = "Unknown Network";
+          this.currentContractAddresses.pepe = null;
+          this.currentContractAddresses.pndc = null;
+      }
     }
-  }
   },
   mounted() {
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', (accounts) => {
-    if (accounts.length === 0) {
-        console.log('Please connect to MetaMask.');
-        this.accountAddress = null;
-    } else {
-        this.accountAddress = accounts[0];
-        this.updateBalance();
-    }
-  });
+        if (accounts.length === 0) {
+          console.log('Please connect to MetaMask.');
+          this.accountAddress = null;
+        } else {
+          this.accountAddress = accounts[0];
+          this.updateBalance();
+        }
+      });
 
       window.ethereum.on('chainChanged', (chainId) => {
         this.setNetwork(Number(chainId));
@@ -253,13 +264,13 @@ export default {
 
       window.ethereum.request({ method: 'eth_accounts' }).then((accounts) => {
         if (accounts && accounts[0]) {
-        console.log("Selected address found:", accounts[0]);
-        this.accountAddress = accounts[0];
-        this.connectWallet(); 
-      } else {
-        console.log("No selected address found");
-      }
-    });
+          console.log("Selected address found:", accounts[0]);
+          this.accountAddress = accounts[0];
+          this.connectWallet();
+        } else {
+          console.log("No selected address found");
+        }
+      });
 
 
       this.getNetworkVersion();  // Fetch the current network version

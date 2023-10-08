@@ -11,7 +11,9 @@
 <script>
 import MiningRigABI from '../ABI/MiningRigABI.json'
 import SpinnerSVG from './SpinnerSVG.vue';
-import Web3 from 'web3';
+import { ethers } from "ethers";
+let provider;
+let contract;
 
 export default {
   components: {
@@ -38,8 +40,22 @@ export default {
     },
   },
   async created() {
-    await window.web3.currentProvider.enable();
-    this.web3 = new Web3(window.web3.currentProvider);
+    if (window.ethereum) {
+      try {
+        provider = new ethers.BrowserProvider(window.ethereum);
+        contract = new ethers.Contract(
+          this.contractAddress,
+          MiningRigABI,
+          await provider.getSigner()
+        );
+      } catch (error) {
+        console.error("Failed to enable ethereum or create contract:", error);
+      }
+    } else {
+      console.log(
+        "Non-Ethereum browser detected. You should consider trying MetaMask!"
+      );
+    }
   },
   computed: {
     insufficientFunds() {
@@ -50,25 +66,7 @@ export default {
     async mine() {
       this.loading = true;
       try {
-        if (!this.web3) {
-          console.error('Web3 is not initialized.');
-          return;
-        }
-
-        if (!this.contractAddress) {
-          console.error('contractAddress is not initialized.');
-          return;
-        }
-
-        const contract = new this.web3.eth.Contract(MiningRigABI, this.contractAddress);
-
-        if (!contract) {
-          console.error('Contract is not initialized.');
-          return;
-        }
-
-        const accounts = await this.web3.eth.getAccounts();
-
+        let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         if (!accounts || accounts.length === 0) {
           console.error('No accounts found.');
           return;
@@ -83,20 +81,11 @@ export default {
           amountOutMinUniswap: amountOutMinUniswap,
         });
 
-        const value = this.web3.utils.toHex(this.enteredAmount.toString())
-          await contract.methods
-          .mineLiquidity(amountOutMinUniswap)
-          .send({ from: account, value: value })
-          .on('transactionHash', (hash) => {
-            console.log('transactionHash', hash);
-          })
-          .on('confirmation', (confirmationNumber, receipt) => {
-            console.log('confirmation', confirmationNumber);
-            const quote = receipt.events.MinedTokens.returnValues.quote;
-            this.$emit('quoteObtained', quote);
-          })
-          .on('error', console.error);
-
+        const tx = await contract.mineLiquidity(amountOutMinUniswap, {
+          value: ethers.parseEther(this.enteredAmount.toString()),
+          from: account,
+        });
+        await tx.wait(); // Wait for transaction to be mined
         this.$emit('mine');
       } catch (error) {
         console.error('Mining failed:', error.message || error);
