@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       transitionName: 'balance-spin',
-      displayBalance: '0.00' // Initialize displayBalance to '0.00'
+      displayBalance: '0.00'
     }
   },
   computed: {
@@ -38,11 +38,10 @@ export default {
   },
   methods: {
     triggerAnimation() {
-      // Trigger the animation shortly after the component is mounted
       this.$nextTick(() => {
         setTimeout(() => {
           this.displayBalance = this.formattedBalance;
-        }, 50); // Adjust the delay as needed
+        }, 50);
       });
     }
   }

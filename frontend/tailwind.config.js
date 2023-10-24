@@ -13,10 +13,10 @@ module.exports = {
         'xxs': ['0.5rem', '0.65rem'] 
       },
       borderWidth: {
-        'button': '2px',
+        'custom-blue': '2px',
       },
       borderColor: {
-        'button': '#0751bf',
+        'custom-blue': '#0751bf',
       },
       backgroundColor: {
         'button-inactive': 'rgba(19, 24, 32, 0.45)',
@@ -24,14 +24,15 @@ module.exports = {
         'button': '#131820',
         'button-hover': '#0a0f14',
         'button-active': '#1a2026',
+        'timer': '#0751bf',
       },
       textColor: {
-        'button': '#0751bf',
-        'button-inactive': '#0751bf',
+        'custom-blue': '#0751bf',
+        'custom-blue-inactive': '#0751bf',
         'teal': '#5d9fa5',
       },
       textShadow: {
-        'button': '0 0 2px #0751bf',
+        'custom-blue': '0 0 2px #0751bf',
       },
       minHeight: {
         'content': '400px',

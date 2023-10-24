@@ -6,7 +6,7 @@
         Not Supported.
     </video>
     
-    <div class="main-container flex flex-col items-center justify-center min-h-screen">
+    <div class="main-container relative flex flex-col items-center justify-center min-h-screen">
       <MainCard 
         :accountAddress="accountAddress" 
         :ethBalance="balance" 
@@ -21,6 +21,7 @@
           <span v-if="hovering">Disconnect Wallet</span>
           <span v-else>Address: {{ shortenedAddress }}</span>
         </p>
+        <NotificationCard ref="notificationCard" />
         <div v-if="networkName" class="flex items-center mt-2 text-yellow-300 font-extrabold sm:text-xs md:text-sm md:absolute md:bottom-5 md:right-5">
           <p :class="{ 'text-purple-400': networkName === 'Sepolia' }" class="mr-2">
             {{ networkName }}
@@ -37,6 +38,7 @@
 
 <script>
 import { formatEther, Contract, BrowserProvider } from "ethers";
+import NotificationCard from '@/components/NotificationCard.vue';
 import MainCard from '@/components/MainCard.vue';
 
 
@@ -60,6 +62,7 @@ export default {
   name: 'App',
   components: {
     MainCard,
+    NotificationCard,
   },
   data() {
     return {

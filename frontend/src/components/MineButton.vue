@@ -14,6 +14,7 @@ import MiningRigABI from '../ABI/MiningRigABI.json'
 import SpinnerSVG from './SpinnerSVG.vue';
 import { ethers } from "ethers";
 let provider;
+// eslint-disable-next-line no-unused-vars
 let contract;
 
 export default {
@@ -68,31 +69,37 @@ export default {
   },
   methods: {
     async mine() {
-      this.loading = true;
-      try {
+      try {        
+        this.loading = true;
         let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         if (!accounts || accounts.length === 0) {
           console.error('No accounts found.');
           return;
         }
-
         const account = accounts[0];
         const amountOutMinUniswap = 2000;
-
         console.log('Sending Transaction with:', {
           from: account,
           value: this.enteredAmount,
           amountOutMinUniswap: amountOutMinUniswap,
         });
-
         const tx = await contract.mineLiquidity(amountOutMinUniswap, {
           value: ethers.parseEther(this.enteredAmount.toString()),
           from: account,
         });
-        await tx.wait(); // Wait for transaction to be mined
+        const receipt = await tx.wait();
+        const minedEvent = receipt.events?.find(e => e.event === "PPEPE Mined Bruh");
+        const quoteValue = minedEvent.args.quote;
         this.$emit('mine');
+        this.$emit('quoteObtained', quoteValue.toString());
+        this.$root.$refs.notificationCard.showNotification("success");
+        
+        // Manually trigger notification popup, dont forget to comment out the mineLiquidity call
+        //this.$root.$refs.notificationCard.showNotification("error");
+
       } catch (error) {
         console.error('Mining failed:', error.message || error);
+        this.$root.$refs.notificationCard.showNotification("error");
       } finally {
         this.loading = false;
       }

@@ -1,10 +1,11 @@
 <template>
-  <div class="flex flex-col items-center justify-center overflow-hidden w-128 h-100 rounded-lg space-y-5">
+  <div class="flex flex-col items-center justify-center w-128 h-100 rounded-lg space-y-5">
     <video width="480" height="360" autoplay loop playsinline ref="videoElement" muted class="object-cover rounded-lg">
       <source :src="selectedVideo" type="video/mp4">
       Not Supported.
     </video>
-    <button @click="handleClick" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors">
+    <ConnectWalletButton v-if="!accountAddress" @connect="$emit('connect')" class="mt-5"/>
+    <button v-else @click="handleClick" class="bg-gradient-to-r from-sky-600 to sky-900 hover:bg-button hover:bg-blue-700 font-origin focus:outline-none focus:ring-2 focus:ring-blue-700 text-yellow-300 px-4 py-2 rounded-xl cursor-pointer text-lg font-semibold transition-colors">
       <SpinnerSVG v-if="loading" />
       <span v-else>{{ buttonText }}</span>
     </button>
@@ -13,12 +14,20 @@
 
 
 <script>
+import ConnectWalletButton from './ConnectWalletButton.vue';
 import SpinnerSVG from './SpinnerSVG.vue';
 
 export default {
   name: 'ClaimCard',
   components: {
-    SpinnerSVG
+    SpinnerSVG,
+    ConnectWalletButton
+  },
+  props: {
+    accountAddress: {
+      type: String,
+      default: null
+    }
   },
   data() {
     return {
@@ -29,7 +38,7 @@ export default {
         require('@/assets/planet_4.mp4'),
         require('@/assets/planet_5.mp4'),
         require('@/assets/planet_6.mp4'),
-        require('@/assets/planet_7.mp4'),
+        require('@/assets/planet_7.mp4'), // add 3 more for an even ten
       ],
       selectedVideo: '',
       buttonText: 'Claim',

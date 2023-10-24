@@ -1,15 +1,15 @@
 <template>
-  <div class="flex flex-col items-center border-1 border-button justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl w-full mx-auto">
-    <div class="rig-toggle flex cursor-pointer mb-4 rounded-xl overflow-hidden border-2 border-button shadow-md relative" @click="toggleMiningRig">
+  <div class="flex flex-col items-center border-1 border-custom-blue justify-between bg-card-blue bg-opacity-50 p-5 rounded-xl w-full mx-auto">
+    <div class="rig-toggle flex cursor-pointer mb-4 rounded-xl overflow-hidden border-2 border-custom-blue shadow-md relative" @click="toggleMiningRig">
       <div class="absolute left-0 top-0 h-full w-1/2 bg-button-active rounded-xl transition-all duration-300" 
         :class="selectedMiningRig === 'PePe' ? 'left-0' : 'left-1/2'"></div>
       <div 
-        :class="selectedMiningRig === 'PePe' ? 'text-yellow-300' : 'text-button-inactive'" 
+        :class="selectedMiningRig === 'PePe' ? 'text-yellow-300' : 'text-custom-blue-inactive'" 
         class="flex text-center py-2 px-8 font-bold font-origin transition-colors duration-300 ease-in-out z-10"
         @click="setSelectedToken('PePe')"
       ><img :src="require('@/assets/pepe.png')" alt="Currency Logo" class="w-6 h-6 rounded-full mr-2">PePe</div>
       <div 
-        :class="selectedMiningRig === 'Pond' ? 'text-yellow-300' : 'text-button-inactive'" 
+        :class="selectedMiningRig === 'Pond' ? 'text-yellow-300' : 'text-custom-blue-inactive'" 
         class="flex text-center py-2 px-8 font-bold font-origin transition-colors duration-300 ease-in-out z-10"
         @click="setSelectedToken('Pond')"
       >Pond <img :src="require('@/assets/pond.png')" alt="Currency Logo" class="w-6 h-6 rounded-full ml-2"></div>
@@ -27,7 +27,7 @@
 
     <transition name="expand">
   <div 
-    class="cursor-pointer absolute top-[49.75%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[90vw] sm:max-w-[70vw] md:max-w-[50vw] lg:max-w-[40vw] xl:max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-85 text-button font-bold border-2 border-button shadow-md z-2 overflow-hidden whitespace-nowrap"
+    class="cursor-pointer absolute top-[49.75%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[90vw] sm:max-w-[70vw] md:max-w-[50vw] lg:max-w-[40vw] xl:max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-85 text-custom-blue font-bold border-2 border-custom-blue shadow-md z-2 overflow-hidden whitespace-nowrap"
     @click="toggleCopeSequence"
   >
     <span v-show="!showCopeSequence" class="w-full text-center text-xs my-xs-1 mx-1 text-yellow-300 sm:px-2.5 font-origin">
@@ -55,9 +55,7 @@
       :quote="localQuote"
     />
     
-    <!-- Show 'Connect Wallet' button when accountAddress is null/undefined -->
     <ConnectWalletButton v-if="!accountAddress" @connect="$emit('connect')" class="mt-5"/>
-    <!-- Show 'Mine' button when accountAddress is available -->
     <MineButton v-else
       :contractAddress="selectedContractAddress"
       :enteredAmount="enteredAmountData"
