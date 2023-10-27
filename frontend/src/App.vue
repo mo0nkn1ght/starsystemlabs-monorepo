@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="relative font-sans text-center max-w-full mx-auto overflow-hidden">
     <video autoplay muted loop playsinline id="backgroundVideo"
-        class="fixed right-0 bottom-0 min-w-full min-h-full object-cover z-negative">
+        class="absolute top-0 left-0 w-full h-full object-cover z-negative">
       <source src="@/assets/POC.mp4" type="video/mp4">
         Not Supported.
     </video>
@@ -13,6 +13,17 @@
         :ppepeBalance="ppepeBalance"
         @connect="connectWallet" 
       />
+      <div>
+        <p class="text-yellow-300 font-nixie sm:text-xs md:text-sm cursor-pointer" 
+          v-if="shortenedContractAddress"
+          @mouseover="contractHovering = true"
+          @mouseleave="contractHovering = false">
+            <a :href="'https://etherscan.io/address/' + currentContractAddresses.ppepe" 
+              target="_blank" rel="noopener noreferrer">
+                {{ contractHovering ? 'Jump to Etherscan' : 'Contract: ' + shortenedContractAddress }}
+            </a>
+        </p>
+      </div>
       <div v-if="accountAddress" class="flex flex-col items-center mt-5 font-nixie sm:items-start">
         <p class="text-yellow-300 font-thin sm:text-xs md:text-sm cursor-pointer"
           @click="disconnectWallet"
@@ -22,6 +33,11 @@
           <span v-else>Address: {{ shortenedAddress }}</span>
         </p>
         <NotificationCard ref="notificationCard" />
+        <div class="flex items-center mt-2 text-yellow-300 font-nixie sm:text-xs md:text-sm md:absolute md:bottom-5 md:left-5">
+          <button @click="addToMetamask" class="hover:underline font-bold py-2 px-4 rounded">
+            Add to Metamask
+          </button>
+        </div>
         <div v-if="networkName" class="flex items-center mt-2 text-yellow-300 font-extrabold sm:text-xs md:text-sm md:absolute md:bottom-5 md:right-5">
           <p :class="{ 'text-purple-400': networkName === 'Sepolia' }" class="mr-2">
             {{ networkName }}
@@ -31,6 +47,11 @@
                alt="Network Icon" 
                class="w-6 h-6">
         </div>
+      </div>
+      <div class="w-full text-center font-nixie mt-2 mb-2 text-xs">
+        <a href="https://docs.starsystemlabs.com/the-tesseract-of-knowledge/star-system-labs/terms-of-use" class="text-yellow-300 hover:underline" target="_blank" rel="noopener noreferrer">Terms</a>
+          <span class="mx-2 text-yellow-300">|</span>
+        <a href="https://docs.starsystemlabs.com/the-tesseract-of-knowledge/star-system-labs/privacy-policy" class="text-yellow-300 hover:underline" target="_blank" rel="noopener noreferrer">Privacy</a>
       </div>
     </div>
   </div>
@@ -89,10 +110,41 @@ export default {
         pndc: null,
         ppepe: null
       },
-      hovering: false
+      hovering: false,
+      contractHovering: false,
     };
   },
   methods: {
+    async addToMetamask() {
+    try {
+        // Check if Ethereum provider exists
+        if (typeof window.ethereum !== 'undefined') {
+            // Use Metamask plugin to prompt the user to add the token
+            const wasAdded = await window.ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                    type: 'ERC20', 
+                    options: {
+                        address: '0x98830a6CC6f8964CeC4FFD65F19EDeBba6fEf865',
+                        symbol: 'PPEPE', 
+                        decimals: 18, 
+                        image: 'https://raw.githubusercontent.com/mo0nkn1ght/assets/main/ppepe256.png',
+                    },
+                },
+            });
+
+            if (wasAdded) {
+                console.log('PPEPE token was added!');
+            } else {
+                console.log('PPEPE token was not added.');
+            }
+          } else {
+            console.error('Ethereum provider not detected');
+          }
+        } catch (error) {
+          console.error('Error adding token to Metamask:', error);
+        }
+    },
     disconnectWallet() {
       this.accountAddress = null;
       this.balance = null;
@@ -285,8 +337,15 @@ export default {
         return `${this.accountAddress.slice(0, 6)}...${this.accountAddress.slice(-4)}`;
       }
       return null;
+    },
+    shortenedContractAddress() {
+      const contractAddress = this.currentContractAddresses.ppepe;
+      if (contractAddress) {
+        return `${contractAddress.slice(0, 6)}...${contractAddress.slice(-4)}`;
+      }
+      return null;
     }
-  },
+  }
 }
 </script>
 

@@ -1,5 +1,8 @@
 <template>
   <div class="absolute top-50px flex flex-col items-center justify-center border-custom-blue bg-card-blue bg-opacity-50 rounded-xl shadow-md p-6 w-full max-w-md mx-auto my-5 relative sm:max-w-xl md:max-w-xl">
+    
+    <h1 class="text-yellow-300 font-origin text-4xl mb-4">Nebula</h1>
+    
     <div class="selectors flex space-x-4 justify-between mx-5 mb-4 w-full font-origin">
       <button 
         @click="setSelectedCard('mine')" 
@@ -33,8 +36,11 @@
       </button>
     </div>
 
-      <div v-if="selectedCard === 'mine'" class="flex justify-center w-full">
-        <MinerCard :ethBalance="ethBalance" :ppepeBalance="ppepeBalance" :accountAddress="accountAddress" @amountChanged="someMethodInMainCard" @connect="$emit('connect')" />
+      <div v-if="selectedCard === 'mine'" class="flex flex-col justify-center w-full">
+      <MinerCard :ethBalance="ethBalance" :ppepeBalance="ppepeBalance" :accountAddress="accountAddress" @amountChanged="someMethodInMainCard" @connect="$emit('connect')" />
+      <div class="mt-4 text-yellow-300 font-origin font-semibold text-xl sm:text-xs">
+        Mine More, Earn More
+      </div>
       </div>
       <div v-if="selectedCard === 'claim'" class="w-full">
         <ClaimCard

@@ -26,10 +26,10 @@
     />
 
     <transition name="expand">
-  <div 
-    class="cursor-pointer absolute top-[49.75%] left-[50%] transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[90vw] sm:max-w-[70vw] md:max-w-[50vw] lg:max-w-[40vw] xl:max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-85 text-custom-blue font-bold border-2 border-custom-blue shadow-md z-2 overflow-hidden whitespace-nowrap"
-    @click="toggleCopeSequence"
-  >
+      <div 
+      class="cope-sequence cursor-pointer absolute transform translate-x-[-50%] scale-x-[1] transition-transform duration-500 ease-in-out rounded-xl h-10 max-w-[90vw] sm:max-w-[70vw] md:max-w-[50vw] lg:max-w-[40vw] xl:max-w-[32vw] flex items-center justify-center bg-card-blue bg-opacity-85 text-custom-blue font-bold border-2 border-custom-blue shadow-md z-2 overflow-hidden whitespace-nowrap sm:p-2"
+        @click="toggleCopeSequence"
+      >
     <span v-show="!showCopeSequence" class="w-full text-center text-xs my-xs-1 mx-1 text-yellow-300 sm:px-2.5 font-origin">
       Mine PPePe
     </span>
@@ -226,4 +226,50 @@ export default {
   transform: rotate(-45deg);
 }
 
+.cope-sequence {
+  top: 51.55%; 
+  left: 50%;
+}
+
+/* Adjustments for screens with width <= 1280px */
+@media (max-width: 1280px) {
+  .cope-sequence {
+    top: 51.55%;
+  }
+}
+
+/* Adjustments for screens with width <= 1024px */
+@media (max-width: 1024px) {
+  .cope-sequence {
+    top: 51.55%;
+  }
+}
+
+/* Adjustments for screens with width <= 768px */
+@media (max-width: 768px) {
+  .cope-sequence {
+    top: 51.55%;
+  }
+}
+
+/* Adjustments for screens with width <= 640px */
+@media (max-width: 640px) {
+  .cope-sequence {
+    top: 50.75%;
+  }
+}
+
+/* Adjustments for screens with width <= 300px */
+@media (max-width: 300px) {
+  .cope-sequence {
+    top: 48.55%;
+  }
+}
+
+/* Adjustments for screens with width <= 280px */
+@media (max-width: 280px) {
+  .cope-sequence {
+    top: 46.75%;
+  }
+}
 </style>
