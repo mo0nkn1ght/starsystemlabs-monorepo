@@ -69,41 +69,54 @@ export default {
   },
   methods: {
     async mine() {
-      try {        
-        this.loading = true;
-        let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        if (!accounts || accounts.length === 0) {
-          console.error('No accounts found.');
-          return;
-        }
-        const account = accounts[0];
-        const amountOutMinUniswap = 2000;
-        console.log('Sending Transaction with:', {
-          from: account,
-          value: this.enteredAmount,
-          amountOutMinUniswap: amountOutMinUniswap,
-        });
-        const tx = await contract.mineLiquidity(amountOutMinUniswap, {
-          value: ethers.parseEther(this.enteredAmount.toString()),
-          from: account,
-        });
-        const receipt = await tx.wait();
-        const minedEvent = receipt.events?.find(e => e.event === "PPEPE Mined Bruh");
-        const quoteValue = minedEvent.args.quote;
-        this.$emit('mine');
-        this.$emit('quoteObtained', quoteValue.toString());
-        this.$root.$refs.notificationCard.showNotification("success");
-        
-        // Manually trigger notification popup, dont forget to comment out the mineLiquidity call
-        //this.$root.$refs.notificationCard.showNotification("error");
-
-      } catch (error) {
-        console.error('Mining failed:', error.message || error);
-        this.$root.$refs.notificationCard.showNotification("error");
-      } finally {
-        this.loading = false;
-      }
+  try {
+    this.loading = true;
+    let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    
+    if (!accounts || accounts.length === 0) {
+      console.error('No accounts found.');
+      return;
     }
-  },
+    
+    const account = accounts[0];
+    const amountOutMinUniswap = 2000;
+    
+    console.log('Sending Transaction with:', {
+      from: account,
+      value: this.enteredAmount,
+      amountOutMinUniswap: amountOutMinUniswap,
+    });
+    
+    const tx = await contract.mineLiquidity(amountOutMinUniswap, {
+      value: ethers.parseEther(this.enteredAmount.toString()),
+      from: account,
+    });
+    
+    const receipt = await tx.wait();
+
+    if (receipt.status === 0) {
+      // Transaction failed
+      this.$root.$refs.notificationCard.showNotification("error");
+    } else if (receipt.status === 1) {
+      // Transaction succeeded
+      const minedEvent = receipt.events?.find(e => e.event === "PPEPE Mined Bruh");
+      const quoteValue = minedEvent.args.quote;
+      this.$emit('mined');
+      this.$emit('quoteObtained', quoteValue.toString());
+      this.$root.$refs.notificationCard.showNotification("success");
+    }
+  } catch (error) {
+    if (error.code === 9001) {
+      // User rejected the transaction
+      console.error('Transaction was rejected by the user, and its over 9000');
+    } else {
+      console.error('Mining failed: Its over 9000, ', error.message || error);
+      this.$root.$refs.notificationCard.showNotification("error");
+    }
+  } finally {
+    this.loading = false;
+   }
+  }
+ }
 };
 </script>
